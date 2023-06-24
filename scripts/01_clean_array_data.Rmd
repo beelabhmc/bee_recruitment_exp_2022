@@ -88,7 +88,7 @@ for (i in 1:length(array_dfs)){
 }
 ```
 
-# Step : Convert any text in cells to 1s
+# Step : Convert any text in bee observation columns to 1s
 
 ```{r}
 convert_text_to_ones <- function(df){
@@ -143,65 +143,6 @@ for (i in 1:length(array_dfs)){
   array_dfs[[i]] <- convert_to_long_format(array_dfs[[i]])
   list2env(array_dfs,.GlobalEnv)
 }
-```
-
-
-# Step : Fix Bee IDs that start with X
-
-```{r}
-fix_ids <- function(df){
-  df <- df %>%
-    mutate(Bee = gsub(pattern = "X",
-                      replacement = "",
-                      x = Bee))
-}
-```
-
-```{r}
-for (i in 1:length(array_dfs)){
-  array_dfs[[i]] <- fix_ids(array_dfs[[i]])
-  list2env(array_dfs,.GlobalEnv)
-}
-```
-
-
-# Step : Create new data frame with first sighting of each bee and length of time bee could have visited flower array
-
-```{r}
-first_sighting <- . %>%
-  separate_wider_delim(cols = Vid_time_interval,
-                       delim = ":",
-                       names = c("Hour","Minute")) %>%
-  mutate(Hour = as.double(Hour)) %>%
-  mutate(Minute = as.double(Minute)) %>%
-  mutate(Decimal_time = (Hour*60) + Minute) %>%
-  group_by(Bee) %>%
-  summarize(Decimal_time = min(Decimal_time)) %>%
-  mutate(Duration = 60 - Decimal_time)
-```
-
-```{r}
-for (i in 1:length(array_dfs)){
-  array_dfs[[i]] <- first_sighting(array_dfs[[i]])
-  list2env(array_dfs,.GlobalEnv)
-}
-```
-
-Correct Trial 1 duration values (2 hours instead of 1):
-
-```{r}
-array_clove_0615 <- array_clove_0615 %>%
-  mutate(Duration = Duration + 60)
-array_peppermint_0615 <- array_peppermint_0615 %>%
-  mutate(Duration = Duration + 60)
-array_clove_0616 <- array_clove_0616 %>%
-  mutate(Duration = Duration + 60)
-array_peppermint_0616 <- array_peppermint_0616 %>%
-  mutate(Duration = Duration + 60)
-array_clove_0617 <- array_clove_0617 %>%
-  mutate(Duration = Duration + 60)
-array_peppermint_0617 <- array_peppermint_0617 %>%
-  mutate(Duration = Duration + 60)
 ```
 
 
@@ -304,13 +245,43 @@ combined_array_df <- rbind(array_clove_0615, array_peppermint_0615) %>%
   rbind(array_peppermint_0719) %>%
   rbind(array_clove_0720) %>%
   rbind(array_peppermint_0720)
+```
 
-# Add colony to Bee ID and remove WW.a_C (she was from a different colony)
 
+# Step : Add colony to Bee ID and remove WW.a_C (she was from a different colony)
+
+```{r}
 combined_array_df <- combined_array_df %>%
   mutate(Bee = paste(Bee, Colony, sep = "_")) %>%
   filter(Bee != "WW.a_C")
 ```
+
+
+# Step : Fix Bee IDs that start with X
+
+```{r}
+combined_array_df <- combined_array_df %>%
+    mutate(Bee = gsub(pattern = "X",
+                      replacement = "",
+                      x = Bee))
+```
+
+
+# Step : Create new data frame with first sighting of each bee and length of time bee could have visited flower array
+
+```{r}
+combined_array_df <- combined_array_df %>%
+  separate_wider_delim(cols = Vid_time_interval,
+                       delim = ":",
+                       names = c("Hour","Minute")) %>%
+  mutate(Hour = as.double(Hour)) %>%
+  mutate(Minute = as.double(Minute)) %>%
+  mutate(Decimal_time = (Hour*60) + Minute) %>%
+  group_by(Colony, Date, Bee, Scent, Site, Density, Flower_number) %>%
+  summarize(Decimal_time = min(Decimal_time)) %>%
+  mutate(Duration = ifelse(Colony == "7B", 60 - Decimal_time, 120 - Decimal_time))
+```
+
 
 # Step : Write out combined data frame to csv file
 

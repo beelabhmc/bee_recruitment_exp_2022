@@ -92,33 +92,6 @@ for (i in 1:length(hive_dfs)){
 ```
 
 
-# Step : Convert bee IDs to standard format
-
-Use periods instead of dashes to match the flower array ID format and add Colony to the bee ID to deal with repeated color combinations across trials of the experiment
-
-```{r}
-convert_bee_IDs <- function(df){
-  
-  for (row in 1:length(df$Bee)){
-    
-    df$Bee[row] <- gsub(pattern = "-",
-                        replacement = ".",
-                        x = df$Bee[row])
-  }
-  
-  df <- df %>%
-
-    mutate(Bee = paste(Bee, Colony, sep = "_"))
-}
-```
-
-```{r}
-for (i in 1:length(hive_dfs)){
-  hive_dfs[[i]] <- convert_bee_IDs(hive_dfs[[i]])
-  list2env(hive_dfs,.GlobalEnv)
-}
-```
-
 # Step : Combine hive data frames into one
 
 ```{r}
@@ -126,6 +99,24 @@ combined_hive_df <- rbind(hive_dfs[[1]], hive_dfs[[2]])
 for (i in 3:length(hive_dfs)){
   combined_hive_df <- rbind(combined_hive_df, hive_dfs[[i]])
 }
+```
+
+
+# Step : Convert bee IDs to standard format
+
+Use periods instead of dashes to match the flower array ID format and add Colony to the bee ID to deal with repeated color combinations across trials of the experiment
+
+```{r}
+for (row in 1:length(combined_hive_df$Bee)){
+    
+  combined_hive_df$Bee[row] <- gsub(pattern = "-",
+                        replacement = ".",
+                        x = combined_hive_df$Bee[row])
+}
+  
+combined_hive_df <- combined_hive_df %>%
+  mutate(Bee = paste(Bee, Colony, sep = "_"))
+
 ```
 
 
@@ -267,49 +258,3 @@ write.csv(hive_summary,
           "cleaned_data/per_bee_summary.csv",
           row.names = F)
 ```
-
-
-
-# Step : Add trip numbers and intertrip intervals (between previous trip exit and current trip entrance w NA for first trip) to hive data frame based on bee ID, date, and entrance time
-
-# Step : Write out list of improbable/impossible intertrip intervals
-
-# Step : Create a summary data frame for each bee ID sighted at array with total number of dances performed
-
-# Step : Write out the processed hive data frame
-
-# Step : Write out the bee ID summary data frame
-
-# Step :
-
-# Step :
-
-# Step :
-
-# Step :
-
-# Step :
-
-# Step :
-
-# Step :
-
-# Step :
-
-# Step :
-
-# Step :
-
-# Step :
-
-# Step :
-
-# Step :
-
-# Step :
-
-# Step :
-
-# Step :
-
-# Step :
