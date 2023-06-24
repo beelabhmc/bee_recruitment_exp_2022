@@ -36,6 +36,9 @@ vignettes/*.pdf
 *.utf8.md
 *.knit.md
 
+# Rmd html reports
+*.nb.html
+
 # R Environment Variables
 .Renviron
 
