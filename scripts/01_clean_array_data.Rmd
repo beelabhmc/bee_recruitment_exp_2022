@@ -1,0 +1,321 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Set up working directory
+
+```{r, setup} 
+library(knitr) 
+opts_knit$set(root.dir = normalizePath('../'))
+```
+
+# Load libraries
+
+```{r}
+library(tidyverse)
+```
+
+# Step : Read in flower array files
+
+```{r}
+array_clove_0718 <- read.csv("data/0718_Clove_FeederVisits.csv", skip = 2)
+array_peppermint_0718 <- read.csv("data/0718_Peppermint_FeederVisits.csv", skip = 2)
+array_clove_0719 <- read.csv("data/0719_Clove_FeederVisits.csv", skip = 2)
+array_peppermint_0719 <- read.csv("data/0719_Peppermint_FeederVisits.csv", skip = 2)
+array_clove_0720 <- read.csv("data/0720_Clove_FeederVisits.csv", skip = 2)
+array_peppermint_0720 <- read.csv("data/0720_Peppermint_FeederVisits.csv", skip = 2)
+
+array_clove_0615 <- read.csv("data/0615_FeederVisits_Clove.csv")
+array_peppermint_0615 <- read.csv("data/0615_FeederVisits_Peppermint.csv")
+array_clove_0616 <- read.csv("data/0616_FeederVisits_Clove.csv")
+array_peppermint_0616 <- read.csv("data/0616_FeederVisits_Peppermint.csv")
+array_clove_0617 <- read.csv("data/0617_FeederVisits_Clove.csv")
+array_peppermint_0617 <- read.csv("data/0617_FeederVisits_Peppermint.csv")
+```
+
+Make a list of these data frames to process more efficiently (the for loops that iterate over this list are based on code from this Stack Overflow answer https://stackoverflow.com/a/62216494):
+
+```{r}
+array_dfs <- list(array_clove_0718,
+               array_peppermint_0718,
+               array_clove_0719,
+               array_peppermint_0719,
+               array_clove_0720,
+               array_peppermint_0720,
+               array_clove_0615,
+               array_peppermint_0615,
+               array_clove_0616,
+               array_peppermint_0616,
+               array_clove_0617,
+               array_peppermint_0617
+               )
+names(array_dfs) <- c("array_clove_0718",
+               "array_peppermint_0718",
+               "array_clove_0719",
+               "array_peppermint_0719",
+               "array_clove_0720",
+               "array_peppermint_0720",
+               "array_clove_0615",
+               "array_peppermint_0615",
+               "array_clove_0616",
+               "array_peppermint_0616",
+               "array_clove_0617",
+               "array_peppermint_0617"
+               )
+```
+
+# Step : Select only valid, double-marked bee columns
+
+Function to select columns:
+
+```{r}
+select_valid_bee_columns <- function(df){
+  df <- df %>%
+    select(!starts_with("Time")) %>%  # to keep hours:minutes into video
+    select(!contains("Recruits")) %>%
+    select(!contains("Notes")) %>%
+    select(!ends_with("_"))  # to remove single-marked bees
+  
+  return(df)
+}
+```
+
+```{r}
+for (i in 1:length(array_dfs)){
+  array_dfs[[i]] <- select_valid_bee_columns(array_dfs[[i]])
+  list2env(array_dfs,.GlobalEnv)
+}
+```
+
+# Step : Convert any text in cells to 1s
+
+```{r}
+convert_text_to_ones <- function(df){
+  
+  df_colnames <- colnames(df)
+  
+  for (i in 2:length(df_colnames)){
+  
+      if (is_character(df[, i])){
+    
+        for (j in 1:length(df[, i])){
+        
+          if (df[j, i] == ""){
+          
+            df[j, i] <- NA
+        
+          } else {
+          
+            df[j, i] <- "1"  
+        
+          }
+      }
+      
+      df[ , i] <- as.integer(df[ , i])
+    
+      }
+  }
+
+  return(df)
+}
+```
+
+```{r}
+for (i in 1:length(array_dfs)){
+  array_dfs[[i]] <- convert_text_to_ones(array_dfs[[i]])
+  list2env(array_dfs,.GlobalEnv)
+}
+```
+
+# Step : Convert flower array data frames so rows represent each bee sighting
+
+```{r}
+convert_to_long_format <- . %>%
+  pivot_longer(cols = !Vid_time_interval,
+               names_to = "Bee",
+               values_to = "Observed") %>%
+  filter(Observed == 1)
+```
+
+```{r}
+for (i in 1:length(array_dfs)){
+  array_dfs[[i]] <- convert_to_long_format(array_dfs[[i]])
+  list2env(array_dfs,.GlobalEnv)
+}
+```
+
+
+# Step : Fix Bee IDs that start with X
+
+```{r}
+fix_ids <- function(df){
+  df <- df %>%
+    mutate(Bee = gsub(pattern = "X",
+                      replacement = "",
+                      x = Bee))
+}
+```
+
+```{r}
+for (i in 1:length(array_dfs)){
+  array_dfs[[i]] <- fix_ids(array_dfs[[i]])
+  list2env(array_dfs,.GlobalEnv)
+}
+```
+
+
+# Step : Create new data frame with first sighting of each bee and length of time bee could have visited flower array
+
+```{r}
+first_sighting <- . %>%
+  separate_wider_delim(cols = Vid_time_interval,
+                       delim = ":",
+                       names = c("Hour","Minute")) %>%
+  mutate(Hour = as.double(Hour)) %>%
+  mutate(Minute = as.double(Minute)) %>%
+  mutate(Decimal_time = (Hour*60) + Minute) %>%
+  group_by(Bee) %>%
+  summarize(Decimal_time = min(Decimal_time)) %>%
+  mutate(Duration = 60 - Decimal_time)
+```
+
+```{r}
+for (i in 1:length(array_dfs)){
+  array_dfs[[i]] <- first_sighting(array_dfs[[i]])
+  list2env(array_dfs,.GlobalEnv)
+}
+```
+
+Correct Trial 1 duration values (2 hours instead of 1):
+
+```{r}
+array_clove_0615 <- array_clove_0615 %>%
+  mutate(Duration = Duration + 60)
+array_peppermint_0615 <- array_peppermint_0615 %>%
+  mutate(Duration = Duration + 60)
+array_clove_0616 <- array_clove_0616 %>%
+  mutate(Duration = Duration + 60)
+array_peppermint_0616 <- array_peppermint_0616 %>%
+  mutate(Duration = Duration + 60)
+array_clove_0617 <- array_clove_0617 %>%
+  mutate(Duration = Duration + 60)
+array_peppermint_0617 <- array_peppermint_0617 %>%
+  mutate(Duration = Duration + 60)
+```
+
+
+# Step : Add date, colony, scent, site, density, and flower number columns and combine all data frames into one
+
+```{r}
+array_clove_0718 <- array_clove_0718 %>%
+  mutate(Date = "7/18/22") %>%
+  mutate(Colony = "7B") %>%
+  mutate(Scent = "Clove") %>%
+  mutate(Site = "South") %>%
+  mutate(Density = "High") %>%
+  mutate(Flower_number = "Low")
+array_peppermint_0718 <- array_peppermint_0718 %>%
+  mutate(Date = "7/18/22") %>%
+  mutate(Colony = "7B") %>%
+  mutate(Scent = "Peppermint") %>%
+  mutate(Site = "Northeast") %>%
+  mutate(Density = "High") %>%
+  mutate(Flower_number = "Low")
+array_clove_0719 <- array_clove_0719 %>%
+  mutate(Date = "7/19/22") %>%
+  mutate(Colony = "7B") %>%
+  mutate(Scent = "Clove") %>%
+  mutate(Site = "South") %>%
+  mutate(Density = "High") %>%
+  mutate(Flower_number = "Low")
+array_peppermint_0719 <- array_peppermint_0719 %>%
+  mutate(Date = "7/19/22") %>%
+  mutate(Colony = "7B") %>%
+  mutate(Scent = "Peppermint") %>%
+  mutate(Site = "Northeast") %>%
+  mutate(Density = "High") %>%
+  mutate(Flower_number = "High")
+array_clove_0720 <- array_clove_0720 %>%
+  mutate(Date = "7/20/22") %>%
+  mutate(Colony = "7B") %>%
+  mutate(Scent = "Clove") %>%
+  mutate(Site = "South") %>%
+  mutate(Density = "High") %>%
+  mutate(Flower_number = "Low")
+array_peppermint_0720 <- array_peppermint_0720 %>%
+  mutate(Date = "7/20/22") %>%
+  mutate(Colony = "7B") %>%
+  mutate(Scent = "Peppermint") %>%
+  mutate(Site = "Northeast") %>%
+  mutate(Density = "Low") %>%
+  mutate(Flower_number = "Low")
+array_clove_0615 <- array_clove_0615 %>%
+  mutate(Date = "6/15/22") %>%
+  mutate(Colony = "C") %>%
+  mutate(Scent = "Clove") %>%
+  mutate(Site = "South") %>%
+  mutate(Density = "High") %>%
+  mutate(Flower_number = "Low")
+array_peppermint_0615 <- array_peppermint_0615 %>%
+  mutate(Date = "6/15/22") %>%
+  mutate(Colony = "C") %>%
+  mutate(Scent = "Peppermint") %>%
+  mutate(Site = "Northeast") %>%
+  mutate(Density = "High") %>%
+  mutate(Flower_number = "Low")
+array_clove_0616 <- array_clove_0616 %>%
+  mutate(Date = "6/16/22") %>%
+  mutate(Colony = "C") %>%
+  mutate(Scent = "Clove") %>%
+  mutate(Site = "South") %>%
+  mutate(Density = "Low") %>%
+  mutate(Flower_number = "Low")
+array_peppermint_0616 <- array_peppermint_0616 %>%
+  mutate(Date = "6/16/22") %>%
+  mutate(Colony = "C") %>%
+  mutate(Scent = "Peppermint") %>%
+  mutate(Site = "Northeast") %>%
+  mutate(Density = "High") %>%
+  mutate(Flower_number = "Low")
+array_clove_0617 <- array_clove_0617 %>%
+  mutate(Date = "6/17/22") %>%
+  mutate(Colony = "C") %>%
+  mutate(Scent = "Clove") %>%
+  mutate(Site = "South") %>%
+  mutate(Density = "High") %>%
+  mutate(Flower_number = "High") 
+array_peppermint_0617 <- array_peppermint_0617 %>%
+  mutate(Date = "6/17/22") %>%
+  mutate(Colony = "C") %>%
+  mutate(Scent = "Peppermint") %>%
+  mutate(Site = "Northeast") %>%
+  mutate(Density = "High") %>%
+  mutate(Flower_number = "Low")
+
+combined_array_df <- rbind(array_clove_0615, array_peppermint_0615) %>%
+  rbind(array_clove_0616) %>%
+  rbind(array_peppermint_0616) %>%
+  rbind(array_clove_0617) %>%
+  rbind(array_peppermint_0617) %>%
+  rbind(array_clove_0718) %>%
+  rbind(array_peppermint_0718) %>%
+  rbind(array_clove_0719) %>%
+  rbind(array_peppermint_0719) %>%
+  rbind(array_clove_0720) %>%
+  rbind(array_peppermint_0720)
+
+# Add colony to Bee ID and remove WW.a_C (she was from a different colony)
+
+combined_array_df <- combined_array_df %>%
+  mutate(Bee = paste(Bee, Colony, sep = "_")) %>%
+  filter(Bee != "WW.a_C")
+```
+
+# Step : Write out combined data frame to csv file
+
+```{r}
+write.csv(combined_array_df, 
+          "cleaned_data/combined_flower_array_data.csv", 
+          row.names = F)
+```

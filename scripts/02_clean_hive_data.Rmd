@@ -1,0 +1,315 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Set up working directory
+
+```{r, setup} 
+library(knitr) 
+opts_knit$set(root.dir = normalizePath('../'))
+```
+
+# Load libraries
+
+```{r}
+library(tidyverse)
+```
+
+# Step : Read in hive csv files
+
+```{r}
+hive_0615 <- read.csv("data/0615_VideoAnalysis.csv")
+hive_0616 <- read.csv("data/0616_VideoAnalysis.csv")
+hive_0617 <- read.csv("data/0617_VideoAnalysis.csv")
+
+hive_0718 <- read.csv("data/0718_VideoAnalysis.csv", skip = 1)
+hive_0719 <- read.csv("data/0719_VideoAnalysis.csv", skip = 1)
+hive_0720 <- read.csv("data/0720_VideoAnalysis.csv", skip = 1) %>%
+  filter(Bee != "")  # for some reason there were many blank lines
+```
+
+Make a list of these data frames to process more efficiently (the for loops that iterate over this list are based on code from this Stack Overflow answer https://stackoverflow.com/a/62216494):
+
+```{r}
+hive_dfs <- list(hive_0615,
+                      hive_0616,
+                      hive_0617,
+                      hive_0718,
+                      hive_0719,
+                      hive_0720
+               )
+names(hive_dfs) <- c("hive_0615",
+                      "hive_0616",
+                      "hive_0617",
+                      "hive_0718",
+                      "hive_0719",
+                      "hive_0720"
+               )
+```
+
+# Step : Select columns we will use
+
+These include:
+
+* Colony
+* Date
+* Bee
+* Entrance minute
+* Entrance second
+* Danced
+* Bouts columns (1-14)
+
+```{r}
+select_hive_columns <- . %>%
+  select(Colony, 
+         Date, 
+         Bee, 
+         Entrance_minute,
+         Entrance_second,
+         Danced,
+         Bout_1,
+         Bout_2,
+         Bout_3,
+         Bout_4,
+         Bout_5,
+         Bout_6,
+         Bout_7,
+         Bout_8,
+         Bout_9,
+         Bout_10,
+         Bout_11,
+         Bout_12,
+         Bout_13,
+         Bout_14)
+```
+
+```{r}
+for (i in 1:length(hive_dfs)){
+  hive_dfs[[i]] <- select_hive_columns(hive_dfs[[i]])
+  list2env(hive_dfs,.GlobalEnv)
+}
+```
+
+
+# Step : Convert bee IDs to standard format
+
+Use periods instead of dashes to match the flower array ID format and add Colony to the bee ID to deal with repeated color combinations across trials of the experiment
+
+```{r}
+convert_bee_IDs <- function(df){
+  
+  for (row in 1:length(df$Bee)){
+    
+    df$Bee[row] <- gsub(pattern = "-",
+                        replacement = ".",
+                        x = df$Bee[row])
+  }
+  
+  df <- df %>%
+
+    mutate(Bee = paste(Bee, Colony, sep = "_"))
+}
+```
+
+```{r}
+for (i in 1:length(hive_dfs)){
+  hive_dfs[[i]] <- convert_bee_IDs(hive_dfs[[i]])
+  list2env(hive_dfs,.GlobalEnv)
+}
+```
+
+# Step : Combine hive data frames into one
+
+```{r}
+combined_hive_df <- rbind(hive_dfs[[1]], hive_dfs[[2]])
+for (i in 3:length(hive_dfs)){
+  combined_hive_df <- rbind(combined_hive_df, hive_dfs[[i]])
+}
+```
+
+
+# Step : Calculate decimal entrance time and total waggle runs
+
+Then we need to calculate the decimal time of each trip entrance in the hive (and we might as well add the sum of the waggle runs as well):
+
+```{r}
+combined_hive_df <- combined_hive_df %>%
+  mutate(Decimal_entrance_time = Entrance_minute + (Entrance_second/60)) %>%
+  # for some reason, the dance bout columns were loaded in as logical vectors so we need to convert them to integers before summing them
+  mutate(Bout_1 = as.integer(Bout_1)) %>% 
+  mutate(Bout_2 = as.integer(Bout_2)) %>% 
+  mutate(Bout_3 = as.integer(Bout_3)) %>% 
+  mutate(Bout_4 = as.integer(Bout_4)) %>% 
+  mutate(Bout_5 = as.integer(Bout_5)) %>% 
+  mutate(Bout_6 = as.integer(Bout_6)) %>% 
+  mutate(Bout_7 = as.integer(Bout_7)) %>% 
+  mutate(Bout_8 = as.integer(Bout_8)) %>% 
+  mutate(Bout_9 = as.integer(Bout_9)) %>% 
+  mutate(Bout_10 = as.integer(Bout_10)) %>% 
+  mutate(Bout_11 = as.integer(Bout_11)) %>% 
+  mutate(Bout_12 = as.integer(Bout_12)) %>% 
+  mutate(Bout_13 = as.integer(Bout_13)) %>% 
+  mutate(Bout_14 = as.integer(Bout_14)) %>% 
+  mutate(Total_runs = rowSums(across(
+                          c(Bout_1,
+                          Bout_2,
+                          Bout_3,
+                          Bout_4,
+                          Bout_5,
+                          Bout_6,
+                          Bout_7,
+                          Bout_8,
+                          Bout_9,
+                          Bout_10,
+                          Bout_11,
+                          Bout_12,
+                          Bout_13,
+                          Bout_14)
+                          ),
+                          na.rm = T))
+```
+
+
+# Step : Fix Bee IDs that differed in flower array records
+
+```{r}
+combined_hive_df <- combined_hive_df %>%
+  # OP.a is called OF.a at the feeder and that really is more
+  # consistent with her appearance
+  mutate(Bee = ifelse(Bee == "OP.a_7B", "OF.a_7B", Bee)) %>%
+  # Unfortunately, GY and GP seem to be indistinguishable
+  filter(Bee != "GP_7B") %>%
+  filter(Bee != "GY_7B") %>%
+  # Also, BWW is difficult to distinguish from BW and may have visited
+  # both arrays at different times
+  filter(Bee != "BWW_7B") %>%
+  # WR was seen with pollen on her legs after visiting the feeder
+  # so I think she may have been visiting multiple sources
+  filter(Bee != "WR_7B")
+```
+
+
+# Step : Read in the flower array summary csv files created by 01_clean_array_data.Rmd:
+
+```{r}
+array_df <- read.csv("cleaned_data/combined_flower_array_data.csv")
+```
+
+
+# Step : Combine hive data with flower array data
+
+```{r}
+combined_hive_df <- combined_hive_df %>%
+  filter(!is.na(Danced)) %>%  # to get rid of visits we decided were invalid
+  full_join(array_df)
+```
+
+Then we can check that the bees that visited the hive but weren't recorded at a flower array make sense:
+
+```{r}
+combined_hive_df %>%
+  filter(is.na(Decimal_time)) %>%
+  group_by(Date, Bee) %>%
+  summarize()
+```
+
+And we can remove them:
+
+```{r}
+combined_hive_df <- combined_hive_df %>%
+  filter(!is.na(Decimal_time))
+```
+
+Now we can check how many dances were too early:
+
+```{r}
+combined_hive_df %>%
+  filter(Danced == 1) %>%
+  filter(Decimal_entrance_time < Decimal_time) %>%
+  select(Date, Bee, Decimal_entrance_time, Decimal_time)
+```
+
+Based on this, I think it makes sense to give some leeway of 5 minutes (approximately one trip) in trial 2 because it was hard to keep track of every flower array visit.
+
+```{r}
+combined_hive_df <- combined_hive_df %>%
+  filter(is.na(Decimal_entrance_time) | (Decimal_entrance_time - Decimal_time > -5)) # either the bee was never recorded in the hive or she was recorded at a reasonable time
+```
+
+# Step : Write data frame of dances to a csv file
+
+```{r}
+combined_hive_df %>%
+  filter(Danced == 1) %>%
+  write.csv(., 
+          "cleaned_data/all_dances.csv", 
+          row.names = F)
+```
+
+# Step : Make a summary by bee and date
+
+```{r}
+hive_summary <- combined_hive_df %>%
+  group_by(Colony, Date, Scent, Site, Density, Flower_number, Bee) %>%
+  summarize(Dances = sum(Danced, na.rm = F), 
+            Dance_rate = ifelse(sum(Danced, na.rm = F) > 0 & mean(Duration) < 0, 1, sum(Danced, na.rm = F) / mean(Duration/60)),
+            Waggle_runs = sum(Total_runs, na.rm = F)) %>%
+  mutate(Dances = ifelse(is.na(Dances), 0, Dances)) %>%
+  mutate(Dance_rate = ifelse(is.na(Dance_rate), 0, Dance_rate)) %>%
+  mutate(Waggle_runs = ifelse(is.na(Waggle_runs), 0, Waggle_runs))
+```
+
+Write the summary to a csv file:
+
+```{r}
+write.csv(hive_summary,
+          "cleaned_data/per_bee_summary.csv",
+          row.names = F)
+```
+
+
+
+# Step : Add trip numbers and intertrip intervals (between previous trip exit and current trip entrance w NA for first trip) to hive data frame based on bee ID, date, and entrance time
+
+# Step : Write out list of improbable/impossible intertrip intervals
+
+# Step : Create a summary data frame for each bee ID sighted at array with total number of dances performed
+
+# Step : Write out the processed hive data frame
+
+# Step : Write out the bee ID summary data frame
+
+# Step :
+
+# Step :
+
+# Step :
+
+# Step :
+
+# Step :
+
+# Step :
+
+# Step :
+
+# Step :
+
+# Step :
+
+# Step :
+
+# Step :
+
+# Step :
+
+# Step :
+
+# Step :
+
+# Step :
+
+# Step :
+
+# Step :
