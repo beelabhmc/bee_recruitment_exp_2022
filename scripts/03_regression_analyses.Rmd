@@ -1,0 +1,95 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Set up working directory
+
+```{r, setup} 
+library(knitr) 
+opts_knit$set(root.dir = normalizePath('../'))
+```
+
+
+# Load libraries
+```{r}
+library("tidyverse")
+library("lme4")
+library("nlme")
+library("DHARMa")
+library("car")
+```
+
+
+# Step : Read in data files
+
+```{r}
+# This file has one row per recorded hive visit
+hive_visits_df <- read.csv("cleaned_data/all_hive_visits.csv")
+
+# This file has one row per dance
+dances_df <- read.csv("cleaned_data/all_dances.csv")
+
+# This file has one row per uniquely-IDed bee
+bees_df <- read.csv("cleaned_data/per_bee_summary.csv")
+
+```
+
+# Step : Per bee dances model
+
+```{r}
+model_dances <- glmer.nb(Dances ~ Density + Flower_number + Colony + (1|Date),
+                         data = bees_df)
+
+summary(model_dances)
+```
+
+Testing model fit with DHARMa package:
+
+```{r}
+sim_model_dances <- simulateResiduals(model_dances, refit = T)
+testDispersion(sim_model_dances)
+testUniformity(sim_model_dances)
+testOutliers(sim_model_dances)
+```
+
+I don't know how best to fix this because a Poisson regression was worse.
+
+
+# Step : Per bee dance_rate model
+
+```{r}
+model_dance_rate <- lme(Dance_rate ~ Density + Flower_number + Colony,
+                        random = ~1|Date,
+                        data = bees_df)
+
+summary(model_dance_rate)
+```
+
+Testing model fit with plot:
+
+```{r}
+qqnorm(resid(model_dance_rate))
+qqline(resid(model_dance_rate))
+```
+The DHARMa package does not seem to work for lme models. This qqplot looks worrying, especially at the lower theoretical values. I tried transformations (sqrt(x), log(x + 1)), but they don't seem to help.
+
+# Step : Per dance waggle run model
+
+```{r}
+model_waggle_runs <- glmer.nb(Total_runs ~ Density + Flower_number + Colony + (1|Bee/Date),
+                              data = dances_df)
+
+summary(model_waggle_runs)
+```
+
+Testing model fit with DHARMa package:
+
+```{r}
+sim_model_waggle_runs <- simulateResiduals(model_waggle_runs, refit = T)
+testDispersion(sim_model_waggle_runs)
+testUniformity(sim_model_waggle_runs)
+testOutliers(sim_model_waggle_runs)
+```
+
+This seems reasonable to me. No significant over/underdispersion and the qqplot looks good. Excluding Colony does not appear to change the result but adding colony as a random effect (bee nested in date nested in colony) causes the model to not converge.

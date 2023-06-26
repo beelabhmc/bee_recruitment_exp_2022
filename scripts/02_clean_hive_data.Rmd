@@ -230,6 +230,18 @@ combined_hive_df <- combined_hive_df %>%
 
 # Step : Write data frame of dances to a csv file
 
+All recorded hive visits:
+
+```{r}
+combined_hive_df %>%
+  filter(!is.na(Danced)) %>%
+write.csv(.,
+          "cleaned_data/all_hive_visits.csv",
+          row.names = F)
+```
+
+All recorded hive visits that included at least one waggle run:
+
 ```{r}
 combined_hive_df %>%
   filter(Danced == 1) %>%
