@@ -57,6 +57,15 @@ dances_df <- add_info(dances_df)
 ```
 
 
+# Step : Create "figures" folder if needed
+
+```{r}
+if (!dir.exists("figures")){
+  dir.create("figures")
+}
+```
+
+
 # Step : Make boxplot figures
 
 Dances per bee
