@@ -39,6 +39,10 @@ vignettes/*.pdf
 # Rmd html reports
 *.nb.html
 
+# figures
+*.jpg
+*.jpeg
+
 # R Environment Variables
 .Renviron
 

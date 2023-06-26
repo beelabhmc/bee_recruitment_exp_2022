@@ -24,9 +24,6 @@ library("car")
 # Step : Read in data files
 
 ```{r}
-# This file has one row per recorded hive visit
-hive_visits_df <- read.csv("cleaned_data/all_hive_visits.csv")
-
 # This file has one row per dance
 dances_df <- read.csv("cleaned_data/all_dances.csv")
 
@@ -93,3 +90,4 @@ testOutliers(sim_model_waggle_runs)
 ```
 
 This seems reasonable to me. No significant over/underdispersion and the qqplot looks good. Excluding Colony does not appear to change the result but adding colony as a random effect (bee nested in date nested in colony) causes the model to not converge.
+

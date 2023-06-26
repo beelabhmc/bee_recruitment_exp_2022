@@ -1,0 +1,117 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Set up working directory
+
+```{r, setup} 
+library(knitr) 
+opts_knit$set(root.dir = normalizePath('../'))
+```
+
+
+# Load libraries
+```{r}
+library("tidyverse")
+```
+
+
+# Step : Read in data files
+
+```{r}
+# This file has one row per dance
+dances_df <- read.csv("cleaned_data/all_dances.csv")
+
+# This file has one row per uniquely-IDed bee
+bees_df <- read.csv("cleaned_data/per_bee_summary.csv")
+
+```
+
+# Step : Modify data frames to add figure-relevant info
+
+Adding day and constant/changing so they can be used in the figures:
+
+```{r}
+# Helper function
+add_info <- . %>%
+  # Add standardized "Day" variable for each trial
+  mutate(Day = "0") %>% # initialize Day
+  mutate(Day = ifelse(Date %in% c("6/15/22","7/18/22"), "1", Day)) %>%
+  mutate(Day = ifelse(Date %in% c("6/16/22","7/19/22"), "2", Day)) %>%
+  mutate(Day = ifelse(Date %in% c("6/17/22","7/20/22"), "3", Day)) %>%
+  # Add Constant/Changing based on trial and scent info
+  mutate(Treatment = "Null") %>% # initialize treatment
+  mutate(Treatment = ifelse(Colony == "C" & Scent == "Clove", "Changing", Treatment)) %>%
+  mutate(Treatment = ifelse(Colony == "C" & Scent == "Peppermint", "Constant", Treatment)) %>%
+  mutate(Treatment = ifelse(Colony == "7B" & Scent == "Clove", "Constant", Treatment)) %>%
+  mutate(Treatment = ifelse(Colony == "7B" & Scent == "Peppermint", "Changing", Treatment)) %>%
+  # add trial number based on colony
+  mutate(Trial = ifelse(Colony == "C", "Trial 1", "Trial 2"))
+```
+
+```{r}
+bees_df <- add_info(bees_df)
+
+dances_df <- add_info(dances_df)
+```
+
+
+# Step : Make boxplot figures
+
+Dances per bee
+
+```{r}
+bees_df %>%
+  ggplot(aes(x = Treatment, y = Dances, fill = Flower_number, alpha = Density)) +
+  geom_boxplot() +
+  scale_alpha_manual(values = c(1, 0.3)) +
+  labs(y = "Dances performed per bee") +
+  facet_grid(Trial~Day) +
+  theme_classic(base_size = 16)
+
+ggsave("figures/Boxplot_dances_per_bee.jpg", 
+       device="jpeg",
+       width = 10,
+       height = 8,
+       units = "in",
+       dpi = 300)
+```
+
+Dances per bee per hour after she was first seen visiting an artificial flower array
+
+```{r}
+bees_df %>%
+  ggplot(aes(x = Treatment, y = Dance_rate, fill = Flower_number, alpha = Density)) +
+  geom_boxplot() +
+  scale_alpha_manual(values = c(1, 0.3)) +
+  labs(y = "Dances performed per bee per hour") +
+  facet_grid(Trial~Day)+
+  theme_classic(base_size = 16)
+
+ggsave("figures/Boxplot_dance_rate_per_bee.jpg", 
+       device="jpeg",
+       width = 10,
+       height = 8,
+       units = "in",
+       dpi = 300)
+```
+
+Waggle runs per dance
+
+```{r}
+dances_df %>%
+  ggplot(aes(x = Treatment, y = Total_runs, fill = Flower_number, alpha = Density)) +
+  geom_boxplot() +
+  scale_alpha_manual(values = c(1, 0.3)) +
+  labs(y = "Waggle runs per dance") +
+  facet_grid(Trial~Day)+
+  theme_classic(base_size = 16)
+
+ggsave("figures/Boxplot_waggle_runs_per_dance.jpg", 
+       device="jpeg",
+       width = 10,
+       height = 8,
+       units = "in",
+       dpi = 300)
+```
