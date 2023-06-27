@@ -1,0 +1,198 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Set up working directory
+
+```{r, setup} 
+library(knitr) 
+opts_knit$set(root.dir = normalizePath('../'))
+```
+
+
+# Load libraries
+```{r}
+library("tidyverse")
+```
+
+
+# Step : Read in data files
+
+```{r}
+# This file has one row per hive visit
+dances_df <- read.csv("cleaned_data/all_dances.csv")
+
+```
+
+
+# Step : Modify data frames to add figure-relevant info
+
+Adding day and constant/changing so they can be used in the figures:
+
+```{r}
+# Helper function
+add_info <- . %>%
+  # Add standardized "Day" variable for each trial
+  mutate(Day = "0") %>% # initialize Day
+  mutate(Day = ifelse(Date %in% c("6/15/22","7/18/22"), "1", Day)) %>%
+  mutate(Day = ifelse(Date %in% c("6/16/22","7/19/22"), "2", Day)) %>%
+  mutate(Day = ifelse(Date %in% c("6/17/22","7/20/22"), "3", Day)) %>%
+  # Add Constant/Changing based on trial and scent info
+  mutate(Treatment = "Null") %>% # initialize treatment
+  mutate(Treatment = ifelse(Colony == "C" & Scent == "Clove", "Changing", Treatment)) %>%
+  mutate(Treatment = ifelse(Colony == "C" & Scent == "Peppermint", "Constant", Treatment)) %>%
+  mutate(Treatment = ifelse(Colony == "7B" & Scent == "Clove", "Constant", Treatment)) %>%
+  mutate(Treatment = ifelse(Colony == "7B" & Scent == "Peppermint", "Changing", Treatment)) %>%
+  # add trial number based on colony
+  mutate(Trial = ifelse(Colony == "C", "Trial 1", "Trial 2"))
+```
+
+```{r}
+dances_df <- add_info(dances_df) %>%
+  mutate(Integer_time = floor(Decimal_entrance_time)) %>%
+  mutate(Cumul_bees = 0)  # so we can fill in this column below
+```
+
+
+# Step : Calculate cumulative bees, dances, and waggle runs
+
+```{r}
+# Adding cumulative bees (I think!) requires a set of nested for loops
+
+cumulative_df <- data.frame(Trial = character(),
+                 Day = character(),
+                 Treatment = character(),
+                 Density = character(),
+                 Flower_number = character(),
+                 Minute = integer(),
+                 Cumul_bees = integer(),
+                 Cumul_dances = integer(),
+                 Cumul_waggle_runs = integer())
+
+## We need to create one list of bees for every trial, day, treatment combination
+## We use these lists to create a smaller data frame with cumulative bees added
+## and then we need to add each of these temporary data frames to a larger
+## data frame
+trials <- unique(dances_df$Trial)
+days <- unique(dances_df$Day)
+treatments <- unique(dances_df$Treatment)
+
+for (trial_i in trials){
+  if (trial_i == "Trial 1"){
+    minutes <- 1:119
+  } else {
+    minutes <- 1:59
+  }
+  for (day_i in days){
+    for (treatment_i in treatments){
+      # get that subset of rows
+      temp_df <- dances_df %>%
+        filter(Trial == trial_i & Day == day_i & Treatment == treatment_i)
+      curr_density <- temp_df$Density[1]
+      curr_flower_number <- temp_df$Flower_number[1]
+      # create a temporary df to store the cumulative values
+      temp_cumul_df <- data.frame(Trial = rep(x = trial_i, times = length(minutes)),
+                                  Day = rep(x = day_i, times = length(minutes)),
+                                  Treatment = rep(x = treatment_i, times = length(minutes)),
+                                  Density = rep(x = curr_density, times = length(minutes)),
+                                  Flower_number = rep(x = curr_flower_number, times = length(minutes)),
+                                  Minute = minutes,
+                                  Cumul_bees = rep(x = 0, times = length(minutes)),
+                                  Cumul_dances = rep(x = 0, times = length(minutes)),
+                                  Cumul_waggle_runs = rep(x = 0, times = length(minutes)))
+      for (row in 1:length(minutes)){
+        # save the minute for the current row
+        curr_minute <- row
+        # get a subset of temp_df
+        temp_df_row <- temp_df %>%
+          filter(Integer_time <= curr_minute)
+        # get a vector of all bees that entered during that minute
+        curr_bees_list <- unique(temp_df_row$Bee)
+        # add the cumulative totals to the temporary data frame
+        temp_cumul_df$Cumul_bees[row] <- length(curr_bees_list)
+        temp_cumul_df$Cumul_dances[row] <- sum(temp_df_row$Danced)
+        temp_cumul_df$Cumul_waggle_runs[row] <- sum(temp_df_row$Total_runs)
+      }
+      # then add the temporary df to the df we initialized above
+      cumulative_df <- rbind(cumulative_df, temp_cumul_df)
+    }
+  }
+}
+```
+
+
+# Step : Create "figures" folder if needed
+
+```{r}
+if (!dir.exists("figures")){
+  dir.create("figures")
+}
+```
+
+
+# Step : Making cumulative figures
+
+Unique bees who danced
+
+```{r}
+cumulative_df %>%
+  mutate(Setup = paste0("Density: ", Density, " , Number of flowers: ", Flower_number)) %>%
+  ggplot(aes(x = Minute, y = Cumul_bees, color = Setup, linetype = Day)) +
+  scale_linetype_manual(values = c("twodash", "solid", "dotted")) +
+  geom_line(linewidth = 1) +
+  labs(y = "Cumulative bees that danced") +
+  facet_grid(Treatment~Trial, scales = "free_x") +
+  theme_light(base_size = 16)
+
+ggsave("figures/Lineplot_cumulative_dancing_bees.jpg", 
+       device="jpeg",
+       width = 12,
+       height = 8,
+       units = "in",
+       dpi = 300)
+  
+```
+
+Dances performed
+
+```{r}
+cumulative_df %>%
+  mutate(Setup = paste0("Density: ", Density, " , Number of flowers: ", Flower_number)) %>%
+  ggplot(aes(x = Minute, y = Cumul_dances, color = Setup, linetype = Day)) +
+  scale_linetype_manual(values = c("twodash", "solid", "dotted")) +
+  geom_line(linewidth = 1) +
+  labs(y = "Cumulative dances") +
+  facet_grid(Treatment~Trial, scales = "free_x") +
+  theme_light(base_size = 16)
+
+
+ggsave("figures/Lineplot_cumulative_dances.jpg", 
+       device="jpeg",
+       width = 12,
+       height = 8,
+       units = "in",
+       dpi = 300)
+```
+
+Waggle runs performed
+
+```{r}
+cumulative_df %>%
+  mutate(Setup = paste0("Density: ", Density, " , Number of flowers: ", Flower_number)) %>%
+  ggplot(aes(x = Minute, y = Cumul_waggle_runs, color = Setup, linetype = Day)) +
+  scale_linetype_manual(values = c("twodash", "solid", "dotted")) +
+  geom_line(linewidth = 1) +
+  labs(y = "Cumulative waggle runs") +
+  facet_grid(Treatment~Trial, scales = "free_x") +
+  theme_light(base_size = 16)
+  
+
+ggsave("figures/Lineplot_cumulative_waggle_runs.jpg", 
+       device="jpeg",
+       width = 12,
+       height = 8,
+       units = "in",
+       dpi = 300)
+```
+

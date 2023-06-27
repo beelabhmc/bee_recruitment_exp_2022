@@ -72,11 +72,11 @@ Dances per bee
 
 ```{r}
 bees_df %>%
-  ggplot(aes(x = Treatment, y = Dances, fill = Flower_number, alpha = Density)) +
+  mutate(Setup = paste0("Density: ", Density, " , Number of flowers: ", Flower_number)) %>%
+  ggplot(aes(x = Day, y = Dances, fill = Setup)) +
   geom_boxplot() +
-  scale_alpha_manual(values = c(1, 0.3)) +
   labs(y = "Dances performed per bee") +
-  facet_grid(Trial~Day) +
+  facet_grid(Trial~Treatment, scales = "free_y") +
   theme_classic(base_size = 16)
 
 ggsave("figures/Boxplot_dances_per_bee.jpg", 
@@ -91,11 +91,11 @@ Dances per bee per hour after she was first seen visiting an artificial flower a
 
 ```{r}
 bees_df %>%
-  ggplot(aes(x = Treatment, y = Dance_rate, fill = Flower_number, alpha = Density)) +
+  mutate(Setup = paste0("Density: ", Density, " , Number of flowers: ", Flower_number)) %>%
+  ggplot(aes(x = Day, y = Dance_rate, fill = Setup)) +
   geom_boxplot() +
-  scale_alpha_manual(values = c(1, 0.3)) +
   labs(y = "Dances performed per bee per hour") +
-  facet_grid(Trial~Day)+
+  facet_grid(Trial~Treatment, scales = "free_y") +
   theme_classic(base_size = 16)
 
 ggsave("figures/Boxplot_dance_rate_per_bee.jpg", 
@@ -110,11 +110,11 @@ Waggle runs per dance
 
 ```{r}
 dances_df %>%
-  ggplot(aes(x = Treatment, y = Total_runs, fill = Flower_number, alpha = Density)) +
+  mutate(Setup = paste0("Density: ", Density, " , Number of flowers: ", Flower_number)) %>%
+  ggplot(aes(x = Day, y = Total_runs, fill = Setup)) +
   geom_boxplot() +
-  scale_alpha_manual(values = c(1, 0.3)) +
   labs(y = "Waggle runs per dance") +
-  facet_grid(Trial~Day)+
+  facet_grid(Trial~Treatment, scales = "free_y")+
   theme_classic(base_size = 16)
 
 ggsave("figures/Boxplot_waggle_runs_per_dance.jpg", 
