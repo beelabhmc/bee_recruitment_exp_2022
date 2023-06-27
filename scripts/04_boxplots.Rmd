@@ -81,7 +81,7 @@ bees_df %>%
 
 ggsave("figures/Boxplot_dances_per_bee.jpg", 
        device="jpeg",
-       width = 10,
+       width = 12,
        height = 8,
        units = "in",
        dpi = 300)
@@ -100,7 +100,7 @@ bees_df %>%
 
 ggsave("figures/Boxplot_dance_rate_per_bee.jpg", 
        device="jpeg",
-       width = 10,
+       width = 12,
        height = 8,
        units = "in",
        dpi = 300)
@@ -119,7 +119,7 @@ dances_df %>%
 
 ggsave("figures/Boxplot_waggle_runs_per_dance.jpg", 
        device="jpeg",
-       width = 10,
+       width = 12,
        height = 8,
        units = "in",
        dpi = 300)

@@ -142,7 +142,7 @@ cumulative_df %>%
   scale_linetype_manual(values = c("twodash", "solid", "dotted")) +
   geom_line(linewidth = 1) +
   labs(y = "Cumulative bees that danced") +
-  facet_grid(Treatment~Trial, scales = "free_x") +
+  facet_grid(Trial~Treatment, scales = "free_y") +
   theme_light(base_size = 16)
 
 ggsave("figures/Lineplot_cumulative_dancing_bees.jpg", 
@@ -163,7 +163,7 @@ cumulative_df %>%
   scale_linetype_manual(values = c("twodash", "solid", "dotted")) +
   geom_line(linewidth = 1) +
   labs(y = "Cumulative dances") +
-  facet_grid(Treatment~Trial, scales = "free_x") +
+  facet_grid(Trial~Treatment, scales = "free_y") +
   theme_light(base_size = 16)
 
 
@@ -184,7 +184,7 @@ cumulative_df %>%
   scale_linetype_manual(values = c("twodash", "solid", "dotted")) +
   geom_line(linewidth = 1) +
   labs(y = "Cumulative waggle runs") +
-  facet_grid(Treatment~Trial, scales = "free_x") +
+  facet_grid(Trial~Treatment, scales = "free_y") +
   theme_light(base_size = 16)
   
 
