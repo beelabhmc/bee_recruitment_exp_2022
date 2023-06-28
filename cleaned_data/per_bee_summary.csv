@@ -1,245 +1,245 @@
-"Colony","Date","Scent","Site","Density","Flower_number","Bee","Dances","Dance_rate","Waggle_runs"
-"7B","7/18/22","Clove","South","High","Low","BR_7B",2,3.24324324324324,21
-"7B","7/18/22","Clove","South","High","Low","BW.a_7B",1,1.46341463414634,5
-"7B","7/18/22","Clove","South","High","Low","BY.a_7B",0,0,0
-"7B","7/18/22","Clove","South","High","Low","FFP_7B",8,9.05660377358491,292
-"7B","7/18/22","Clove","South","High","Low","FGG_7B",0,0,0
-"7B","7/18/22","Clove","South","High","Low","FO.a_7B",0,0,0
-"7B","7/18/22","Clove","South","High","Low","FO_7B",0,0,0
-"7B","7/18/22","Clove","South","High","Low","FR.a_7B",1,1.2,13
-"7B","7/18/22","Clove","South","High","Low","FR_7B",0,0,0
-"7B","7/18/22","Clove","South","High","Low","FYY_7B",2,2.66666666666667,25
-"7B","7/18/22","Clove","South","High","Low","GGW_7B",4,4.36363636363636,161
-"7B","7/18/22","Clove","South","High","Low","OWW_7B",0,0,0
-"7B","7/18/22","Clove","South","High","Low","PBB_7B",0,0,0
-"7B","7/18/22","Clove","South","High","Low","PO.a_7B",0,0,0
-"7B","7/18/22","Clove","South","High","Low","PO_7B",0,0,0
-"7B","7/18/22","Clove","South","High","Low","PR_7B",1,1.11111111111111,26
-"7B","7/18/22","Clove","South","High","Low","PY.a_7B",0,0,0
-"7B","7/18/22","Clove","South","High","Low","RW.a_7B",0,0,0
-"7B","7/18/22","Clove","South","High","Low","WGG_7B",0,0,0
-"7B","7/18/22","Clove","South","High","Low","WY.a_7B",5,5.88235294117647,99
-"7B","7/18/22","Clove","South","High","Low","WY_7B",0,0,0
-"7B","7/18/22","Clove","South","High","Low","YO.a_7B",0,0,0
-"7B","7/18/22","Peppermint","Northeast","High","Low","BF.a_7B",7,7.63636363636364,82
-"7B","7/18/22","Peppermint","Northeast","High","Low","BG_7B",8,8.27586206896552,81
-"7B","7/18/22","Peppermint","Northeast","High","Low","BO_7B",9,10.3846153846154,138
-"7B","7/18/22","Peppermint","Northeast","High","Low","BP.a_7B",7,7.77777777777778,96
-"7B","7/18/22","Peppermint","Northeast","High","Low","BP_7B",8,8.27586206896552,117
-"7B","7/18/22","Peppermint","Northeast","High","Low","BRR_7B",3,3.52941176470588,15
-"7B","7/18/22","Peppermint","Northeast","High","Low","BWW_7B",0,0,0
-"7B","7/18/22","Peppermint","Northeast","High","Low","FF.a_7B",3,3.33333333333333,33
-"7B","7/18/22","Peppermint","Northeast","High","Low","FYR_7B",9,10.3846153846154,163
-"7B","7/18/22","Peppermint","Northeast","High","Low","FY_7B",8,10.2127659574468,312
-"7B","7/18/22","Peppermint","Northeast","High","Low","GF_7B",0,0,0
-"7B","7/18/22","Peppermint","Northeast","High","Low","GO_7B",8,10.9090909090909,331
-"7B","7/18/22","Peppermint","Northeast","High","Low","GP.a_7B",7,7.92452830188679,73
-"7B","7/18/22","Peppermint","Northeast","High","Low","GR_7B",2,2.10526315789474,32
-"7B","7/18/22","Peppermint","Northeast","High","Low","GY_7B",0,0,0
-"7B","7/18/22","Peppermint","Northeast","High","Low","OB_7B",9,11.0204081632653,142
-"7B","7/18/22","Peppermint","Northeast","High","Low","OF.a_7B",6,6.54545454545455,85
-"7B","7/18/22","Peppermint","Northeast","High","Low","OP_7B",5,6.97674418604651,50
-"7B","7/18/22","Peppermint","Northeast","High","Low","PF.big_7B",5,5.35714285714286,76
-"7B","7/18/22","Peppermint","Northeast","High","Low","PF_7B",4,4.89795918367347,46
-"7B","7/18/22","Peppermint","Northeast","High","Low","PG.a_7B",0,0,0
-"7B","7/18/22","Peppermint","Northeast","High","Low","PGG_7B",2,2.66666666666667,24
-"7B","7/18/22","Peppermint","Northeast","High","Low","PG_7B",5,6.66666666666667,26
-"7B","7/18/22","Peppermint","Northeast","High","Low","POO_7B",0,0,0
-"7B","7/18/22","Peppermint","Northeast","High","Low","PRR_7B",0,0,0
-"7B","7/18/22","Peppermint","Northeast","High","Low","PY.u_7B",10,12.5,105
-"7B","7/18/22","Peppermint","Northeast","High","Low","PY.v_7B",0,0,0
-"7B","7/18/22","Peppermint","Northeast","High","Low","PYY_7B",2,2.66666666666667,25
-"7B","7/18/22","Peppermint","Northeast","High","Low","RB_7B",4,4.52830188679245,23
-"7B","7/18/22","Peppermint","Northeast","High","Low","RF_7B",7,7.77777777777778,65
-"7B","7/18/22","Peppermint","Northeast","High","Low","ROG_7B",0,0,0
-"7B","7/18/22","Peppermint","Northeast","High","Low","RO_7B",5,5.66037735849057,85
-"7B","7/18/22","Peppermint","Northeast","High","Low","RWR_7B",1,1.15384615384615,11
-"7B","7/18/22","Peppermint","Northeast","High","Low","WGR_7B",8,9.05660377358491,86
-"7B","7/18/22","Peppermint","Northeast","High","Low","WOO_7B",10,11.1111111111111,107
-"7B","7/18/22","Peppermint","Northeast","High","Low","WOY_7B",10,11.5384615384615,169
-"7B","7/18/22","Peppermint","Northeast","High","Low","WR.a_7B",9,11.25,384
-"7B","7/18/22","Peppermint","Northeast","High","Low","WRR_7B",1,1.3953488372093,12
-"7B","7/18/22","Peppermint","Northeast","High","Low","WR_7B",0,0,0
-"7B","7/18/22","Peppermint","Northeast","High","Low","YB_7B",4,4.8,127
-"7B","7/18/22","Peppermint","Northeast","High","Low","YF_7B",1,1.13207547169811,0
-"7B","7/18/22","Peppermint","Northeast","High","Low","YP.a_7B",9,9.31034482758621,615
-"7B","7/18/22","Peppermint","Northeast","High","Low","YPY_7B",0,0,0
-"7B","7/19/22","Clove","South","High","Low","BW.a_7B",2,2.06896551724138,78
-"7B","7/19/22","Clove","South","High","Low","BWW2_7B",0,0,0
-"7B","7/19/22","Clove","South","High","Low","BY.a_7B",0,0,0
-"7B","7/19/22","Clove","South","High","Low","FFP_7B",2,2.4,30
-"7B","7/19/22","Clove","South","High","Low","FGG_7B",5,5.55555555555556,193
-"7B","7/19/22","Clove","South","High","Low","FO.a_7B",0,0,0
-"7B","7/19/22","Clove","South","High","Low","FR.a_7B",2,2.26415094339623,74
-"7B","7/19/22","Clove","South","High","Low","FYY_7B",3,3.46153846153846,62
-"7B","7/19/22","Clove","South","High","Low","GGW_7B",6,6.20689655172414,133
-"7B","7/19/22","Clove","South","High","Low","OWW_7B",0,0,0
-"7B","7/19/22","Clove","South","High","Low","PBB_7B",3,3.75,23
-"7B","7/19/22","Clove","South","High","Low","PO.a_7B",2,2.4,21
-"7B","7/19/22","Clove","South","High","Low","PO_7B",5,5.88235294117647,24
-"7B","7/19/22","Clove","South","High","Low","PR_7B",4,4.36363636363636,48
-"7B","7/19/22","Clove","South","High","Low","PY.a_7B",5,5.76923076923077,49
-"7B","7/19/22","Clove","South","High","Low","RW.a_7B",0,0,0
-"7B","7/19/22","Clove","South","High","Low","WGG_7B",7,8.75,75
-"7B","7/19/22","Clove","South","High","Low","WG_7B",0,0,0
-"7B","7/19/22","Clove","South","High","Low","WY.a_7B",6,6.54545454545455,77
-"7B","7/19/22","Clove","South","High","Low","WY_7B",1,1.11111111111111,2
-"7B","7/19/22","Clove","South","High","Low","YO.a_7B",8,8.88888888888889,99
-"7B","7/19/22","Peppermint","Northeast","High","High","BF.a_7B",13,13.9285714285714,311
-"7B","7/19/22","Peppermint","Northeast","High","High","BG_7B",11,11.5789473684211,92
-"7B","7/19/22","Peppermint","Northeast","High","High","BO_7B",10,11.5384615384615,228
-"7B","7/19/22","Peppermint","Northeast","High","High","BP.a_7B",7,7.63636363636364,67
-"7B","7/19/22","Peppermint","Northeast","High","High","BP_7B",13,14.1818181818182,670
-"7B","7/19/22","Peppermint","Northeast","High","High","BRR_7B",2,2.35294117647059,15
-"7B","7/19/22","Peppermint","Northeast","High","High","FF.a_7B",8,9.05660377358491,67
-"7B","7/19/22","Peppermint","Northeast","High","High","FR_7B",5,5.45454545454546,101
-"7B","7/19/22","Peppermint","Northeast","High","High","FYR_7B",8,8.27586206896552,141
-"7B","7/19/22","Peppermint","Northeast","High","High","FY_7B",8,9.41176470588235,304
-"7B","7/19/22","Peppermint","Northeast","High","High","GF_7B",0,0,0
-"7B","7/19/22","Peppermint","Northeast","High","High","GO_7B",9,9.31034482758621,159
-"7B","7/19/22","Peppermint","Northeast","High","High","GP.a_7B",10,10.3448275862069,227
-"7B","7/19/22","Peppermint","Northeast","High","High","GP_7B",0,0,0
-"7B","7/19/22","Peppermint","Northeast","High","High","GY_7B",0,0,0
-"7B","7/19/22","Peppermint","Northeast","High","High","OB_7B",6,7.2,106
-"7B","7/19/22","Peppermint","Northeast","High","High","OF.a_7B",7,8.4,54
-"7B","7/19/22","Peppermint","Northeast","High","High","OW_7B",1,1.07142857142857,14
-"7B","7/19/22","Peppermint","Northeast","High","High","PF.big_7B",0,0,0
-"7B","7/19/22","Peppermint","Northeast","High","High","PF_7B",0,0,0
-"7B","7/19/22","Peppermint","Northeast","High","High","PG.a_7B",0,0,0
-"7B","7/19/22","Peppermint","Northeast","High","High","PGG_7B",0,0,0
-"7B","7/19/22","Peppermint","Northeast","High","High","PG_7B",8,9.41176470588235,176
-"7B","7/19/22","Peppermint","Northeast","High","High","POO_7B",1,1.15384615384615,2
-"7B","7/19/22","Peppermint","Northeast","High","High","PRR_7B",1,1.07142857142857,5
-"7B","7/19/22","Peppermint","Northeast","High","High","PY.u_7B",10,10.3448275862069,146
-"7B","7/19/22","Peppermint","Northeast","High","High","PY.v_7B",8,9.05660377358491,430
-"7B","7/19/22","Peppermint","Northeast","High","High","PYY_7B",8,9.6,98
-"7B","7/19/22","Peppermint","Northeast","High","High","RB_7B",1,1.07142857142857,14
-"7B","7/19/22","Peppermint","Northeast","High","High","RF_7B",9,10,69
-"7B","7/19/22","Peppermint","Northeast","High","High","ROG_7B",0,0,0
-"7B","7/19/22","Peppermint","Northeast","High","High","RO_7B",10,10.9090909090909,190
-"7B","7/19/22","Peppermint","Northeast","High","High","RWR_7B",0,0,0
-"7B","7/19/22","Peppermint","Northeast","High","High","WGR_7B",3,3.33333333333333,13
-"7B","7/19/22","Peppermint","Northeast","High","High","WOO_7B",6,6.20689655172414,59
-"7B","7/19/22","Peppermint","Northeast","High","High","WOY_7B",3,3.6,17
-"7B","7/19/22","Peppermint","Northeast","High","High","WR.a_7B",4,4.13793103448276,103
-"7B","7/19/22","Peppermint","Northeast","High","High","WRR_7B",3,3.21428571428571,40
-"7B","7/19/22","Peppermint","Northeast","High","High","WR_7B",0,0,0
-"7B","7/19/22","Peppermint","Northeast","High","High","YB_7B",7,7.24137931034483,145
-"7B","7/19/22","Peppermint","Northeast","High","High","YF_7B",0,0,0
-"7B","7/19/22","Peppermint","Northeast","High","High","YP.a_7B",7,7.36842105263158,235
-"7B","7/19/22","Peppermint","Northeast","High","High","YPY_7B",3,3.10344827586207,56
-"7B","7/19/22","Peppermint","Northeast","High","High","_7B",0,0,0
-"7B","7/20/22","Clove","South","High","Low","BY.a_7B",5,5.76923076923077,24
-"7B","7/20/22","Clove","South","High","Low","FFP_7B",3,4,82
-"7B","7/20/22","Clove","South","High","Low","FGG_7B",7,7.36842105263158,145
-"7B","7/20/22","Clove","South","High","Low","FO.a_7B",0,0,0
-"7B","7/20/22","Clove","South","High","Low","FYY_7B",6,7.05882352941176,79
-"7B","7/20/22","Clove","South","High","Low","GGW_7B",4,4.8,100
-"7B","7/20/22","Clove","South","High","Low","OWW_7B",1,1.13207547169811,7
-"7B","7/20/22","Clove","South","High","Low","PBB_7B",5,5.66037735849057,82
-"7B","7/20/22","Clove","South","High","Low","PO.a_7B",0,0,0
-"7B","7/20/22","Clove","South","High","Low","PO_7B",1,1.11111111111111,2
-"7B","7/20/22","Clove","South","High","Low","PR_7B",6,7.2,80
-"7B","7/20/22","Clove","South","High","Low","PY.a_7B",1,1.13207547169811,13
-"7B","7/20/22","Clove","South","High","Low","WGG_7B",7,8.57142857142857,92
-"7B","7/20/22","Clove","South","High","Low","WO_7B",0,0,0
-"7B","7/20/22","Clove","South","High","Low","WY.a_7B",11,12.2222222222222,293
-"7B","7/20/22","Clove","South","High","Low","WY_7B",0,0,0
-"7B","7/20/22","Clove","South","High","Low","YO.a_7B",2,2.72727272727273,4
-"7B","7/20/22","Peppermint","Northeast","Low","Low","BF.a_7B",8,8.88888888888889,110
-"7B","7/20/22","Peppermint","Northeast","Low","Low","BG_7B",1,1.03448275862069,1
-"7B","7/20/22","Peppermint","Northeast","Low","Low","BP.a_7B",2,2.06896551724138,34
-"7B","7/20/22","Peppermint","Northeast","Low","Low","BP_7B",6,6.92307692307692,78
-"7B","7/20/22","Peppermint","Northeast","Low","Low","BRR_7B",2,2.30769230769231,7
-"7B","7/20/22","Peppermint","Northeast","Low","Low","BWW_7B",0,0,0
-"7B","7/20/22","Peppermint","Northeast","Low","Low","FF.a_7B",2,2.72727272727273,7
-"7B","7/20/22","Peppermint","Northeast","Low","Low","FR_7B",2,2.5531914893617,14
-"7B","7/20/22","Peppermint","Northeast","Low","Low","FW_7B",0,0,0
-"7B","7/20/22","Peppermint","Northeast","Low","Low","FYR_7B",2,2.30769230769231,9
-"7B","7/20/22","Peppermint","Northeast","Low","Low","FY_7B",4,4.70588235294118,30
-"7B","7/20/22","Peppermint","Northeast","Low","Low","GP.a_7B",0,0,0
-"7B","7/20/22","Peppermint","Northeast","Low","Low","GP_7B",0,0,0
-"7B","7/20/22","Peppermint","Northeast","Low","Low","GY_7B",0,0,0
-"7B","7/20/22","Peppermint","Northeast","Low","Low","OB_7B",5,5.45454545454546,84
-"7B","7/20/22","Peppermint","Northeast","Low","Low","OF.a_7B",2,2.44897959183673,15
-"7B","7/20/22","Peppermint","Northeast","Low","Low","OW_7B",3,3.46153846153846,21
-"7B","7/20/22","Peppermint","Northeast","Low","Low","PF_7B",4,4.52830188679245,37
-"7B","7/20/22","Peppermint","Northeast","Low","Low","PG.a_7B",0,0,0
-"7B","7/20/22","Peppermint","Northeast","Low","Low","PGG_7B",3,3.33333333333333,25
-"7B","7/20/22","Peppermint","Northeast","Low","Low","PG_7B",7,7.36842105263158,142
-"7B","7/20/22","Peppermint","Northeast","Low","Low","POO_7B",0,0,0
-"7B","7/20/22","Peppermint","Northeast","Low","Low","PRR_7B",1,1.15384615384615,1
-"7B","7/20/22","Peppermint","Northeast","Low","Low","PY.v_7B",1,1.11111111111111,2
-"7B","7/20/22","Peppermint","Northeast","Low","Low","PYY_7B",0,0,0
-"7B","7/20/22","Peppermint","Northeast","Low","Low","RB_7B",6,6.92307692307692,42
-"7B","7/20/22","Peppermint","Northeast","Low","Low","RF_7B",4,4.52830188679245,9
-"7B","7/20/22","Peppermint","Northeast","Low","Low","ROG_7B",0,0,0
-"7B","7/20/22","Peppermint","Northeast","Low","Low","RO_7B",1,1.13207547169811,2
-"7B","7/20/22","Peppermint","Northeast","Low","Low","RWR_7B",0,0,0
-"7B","7/20/22","Peppermint","Northeast","Low","Low","WGR_7B",1,1.13207547169811,22
-"7B","7/20/22","Peppermint","Northeast","Low","Low","WO.a_7B",0,0,0
-"7B","7/20/22","Peppermint","Northeast","Low","Low","WOO_7B",2,2.44897959183673,7
-"7B","7/20/22","Peppermint","Northeast","Low","Low","WOY_7B",2,2.30769230769231,3
-"7B","7/20/22","Peppermint","Northeast","Low","Low","WR.a_7B",1,1.42857142857143,1
-"7B","7/20/22","Peppermint","Northeast","Low","Low","WRR_7B",1,1.05263157894737,8
-"7B","7/20/22","Peppermint","Northeast","Low","Low","YB_7B",4,4.13793103448276,32
-"7B","7/20/22","Peppermint","Northeast","Low","Low","YF_7B",5,5.45454545454546,103
-"7B","7/20/22","Peppermint","Northeast","Low","Low","YP.a_7B",0,0,0
-"7B","7/20/22","Peppermint","Northeast","Low","Low","YPY_7B",0,0,0
-"7B","7/20/22","Peppermint","Northeast","Low","Low","YP_7B",0,0,0
-"C","6/15/22","Clove","South","High","Low","BB.a_C",0,0,0
-"C","6/15/22","Clove","South","High","Low","BO.a_C",12,7.5,185
-"C","6/15/22","Clove","South","High","Low","BR_C",0,0,0
-"C","6/15/22","Clove","South","High","Low","FR.a_C",3,2.06896551724138,50
-"C","6/15/22","Clove","South","High","Low","GG.a_C",0,0,0
-"C","6/15/22","Clove","South","High","Low","OB_C",0,0,0
-"C","6/15/22","Clove","South","High","Low","OO.wing_C",0,0,0
-"C","6/15/22","Clove","South","High","Low","OP.a_C",1,0.895522388059702,1
-"C","6/15/22","Clove","South","High","Low","OY.a_C",1,0.652173913043478,5
-"C","6/15/22","Clove","South","High","Low","YP_C",0,0,0
-"C","6/15/22","Clove","South","High","Low","_B.a_C",0,0,0
-"C","6/15/22","Clove","South","High","Low","_P.a_C",0,0,0
-"C","6/15/22","Peppermint","Northeast","High","Low","BF_C",0,0,0
-"C","6/15/22","Peppermint","Northeast","High","Low","BP_C",4,2.35294117647059,54
-"C","6/15/22","Peppermint","Northeast","High","Low","BW_C",10,5.5045871559633,256
-"C","6/15/22","Peppermint","Northeast","High","Low","GR.a_C",5,3.7037037037037,100
-"C","6/15/22","Peppermint","Northeast","High","Low","GW_C",0,0,0
-"C","6/15/22","Peppermint","Northeast","High","Low","RB_C",4,2.5531914893617,80
-"C","6/15/22","Peppermint","Northeast","High","Low","WB_C",0,0,0
-"C","6/16/22","Clove","South","Low","Low","BB.a_C",1,0.512820512820513,8
-"C","6/16/22","Clove","South","Low","Low","BO.a_C",6,3,81
-"C","6/16/22","Clove","South","Low","Low","BR_C",1,0.535714285714286,15
-"C","6/16/22","Clove","South","Low","Low","FR.a_C",1,0.705882352941176,3
-"C","6/16/22","Clove","South","Low","Low","GG.a_C",1,0.638297872340426,2
-"C","6/16/22","Clove","South","Low","Low","OB_C",0,0,0
-"C","6/16/22","Clove","South","Low","Low","OP.a_C",3,1.71428571428571,13
-"C","6/16/22","Clove","South","Low","Low","OY.a_C",0,0,0
-"C","6/16/22","Clove","South","Low","Low","YP_C",0,0,0
-"C","6/16/22","Clove","South","Low","Low","_B.a_C",2,1.02564102564103,33
-"C","6/16/22","Clove","South","Low","Low","_P.a_C",0,0,0
-"C","6/16/22","Peppermint","Northeast","High","Low","BF_C",6,3.36448598130841,67
-"C","6/16/22","Peppermint","Northeast","High","Low","BP_C",2,1.21212121212121,24
-"C","6/16/22","Peppermint","Northeast","High","Low","BW_C",0,0,0
-"C","6/16/22","Peppermint","Northeast","High","Low","GR.a_C",2,1.21212121212121,46
-"C","6/16/22","Peppermint","Northeast","High","Low","GW_C",1,0.508474576271186,5
-"C","6/16/22","Peppermint","Northeast","High","Low","RB_C",4,2.12389380530973,51
-"C","6/16/22","Peppermint","Northeast","High","Low","WB_C",2,2.06896551724138,14
-"C","6/17/22","Clove","South","High","High","BB.a_C",11,5.89285714285714,190
-"C","6/17/22","Clove","South","High","High","BO.a_C",4,4.06779661016949,45
-"C","6/17/22","Clove","South","High","High","BR_C",4,2.26415094339623,55
-"C","6/17/22","Clove","South","High","High","FR.a_C",3,1.85567010309278,15
-"C","6/17/22","Clove","South","High","High","GG.a_C",2,1.01694915254237,18
-"C","6/17/22","Clove","South","High","High","OB_C",1,0.530973451327434,9
-"C","6/17/22","Clove","South","High","High","OP.a_C",2,1.07142857142857,28
-"C","6/17/22","Clove","South","High","High","OY.a_C",2,1.1214953271028,3
-"C","6/17/22","Clove","South","High","High","YP_C",3,1.97802197802198,18
-"C","6/17/22","Clove","South","High","High","_B.a_C",1,0.566037735849057,1
-"C","6/17/22","Clove","South","High","High","_O.a_C",0,0,0
-"C","6/17/22","Clove","South","High","High","_P.a_C",0,0,0
-"C","6/17/22","Peppermint","Northeast","High","Low","BF_C",1,0.638297872340426,36
-"C","6/17/22","Peppermint","Northeast","High","Low","BP_C",2,1.15384615384615,31
-"C","6/17/22","Peppermint","Northeast","High","Low","BW_C",1,0.555555555555556,14
-"C","6/17/22","Peppermint","Northeast","High","Low","GR.a_C",2,1.17647058823529,32
-"C","6/17/22","Peppermint","Northeast","High","Low","GW_C",0,0,0
-"C","6/17/22","Peppermint","Northeast","High","Low","RB_C",1,0.504201680672269,10
-"C","6/17/22","Peppermint","Northeast","High","Low","WB_C",0,0,0
+"Colony","Trial","Date","Day","Scent","Treatment","Setup","Site","Density","Flower_number","Bee","Dances","Dance_rate","Waggle_runs"
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","BR_7B",2,3.24324324324324,21
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","BW.a_7B",1,1.46341463414634,5
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","BY.a_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","FFP_7B",8,9.05660377358491,292
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","FGG_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","FO.a_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","FO_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","FR.a_7B",1,1.2,13
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","FR_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","FYY_7B",2,2.66666666666667,25
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","GGW_7B",4,4.36363636363636,161
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","OWW_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","PBB_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","PO.a_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","PO_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","PR_7B",1,1.11111111111111,26
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","PY.a_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","RW.a_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","WGG_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","WY.a_7B",5,5.88235294117647,99
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","WY_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","YO.a_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","BF.a_7B",7,7.63636363636364,82
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","BG_7B",8,8.27586206896552,81
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","BO_7B",9,10.3846153846154,138
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","BP.a_7B",7,7.77777777777778,96
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","BP_7B",8,8.27586206896552,117
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","BRR_7B",3,3.52941176470588,15
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","BWW_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","FF.a_7B",3,3.33333333333333,33
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","FYR_7B",9,10.3846153846154,163
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","FY_7B",8,10.2127659574468,312
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","GF_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","GO_7B",8,10.9090909090909,331
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","GP.a_7B",7,7.92452830188679,73
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","GR_7B",2,2.10526315789474,32
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","GY_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","OB_7B",9,11.0204081632653,142
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","OF.a_7B",6,6.54545454545455,85
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","OP_7B",5,6.97674418604651,50
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","PF.big_7B",5,5.35714285714286,76
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","PF_7B",4,4.89795918367347,46
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","PG.a_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","PGG_7B",2,2.66666666666667,24
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","PG_7B",5,6.66666666666667,26
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","POO_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","PRR_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","PY.u_7B",10,12.5,105
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","PY.v_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","PYY_7B",2,2.66666666666667,25
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","RB_7B",4,4.52830188679245,23
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","RF_7B",7,7.77777777777778,65
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","ROG_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","RO_7B",5,5.66037735849057,85
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","RWR_7B",1,1.15384615384615,11
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","WGR_7B",8,9.05660377358491,86
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","WOO_7B",10,11.1111111111111,107
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","WOY_7B",10,11.5384615384615,169
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","WR.a_7B",9,11.25,384
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","WRR_7B",1,1.3953488372093,12
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","WR_7B",0,0,0
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","YB_7B",4,4.8,127
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","YF_7B",1,1.13207547169811,0
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","YP.a_7B",9,9.31034482758621,615
+"7B","Trial 2","7/18/22","1","Peppermint","Changing","Density: High, Number of flowers: Low","Northeast","High","Low","YPY_7B",0,0,0
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","BW.a_7B",2,2.06896551724138,78
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","BWW2_7B",0,0,0
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","BY.a_7B",0,0,0
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","FFP_7B",2,2.4,30
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","FGG_7B",5,5.55555555555556,193
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","FO.a_7B",0,0,0
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","FR.a_7B",2,2.26415094339623,74
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","FYY_7B",3,3.46153846153846,62
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","GGW_7B",6,6.20689655172414,133
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","OWW_7B",0,0,0
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","PBB_7B",3,3.75,23
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","PO.a_7B",2,2.4,21
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","PO_7B",5,5.88235294117647,24
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","PR_7B",4,4.36363636363636,48
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","PY.a_7B",5,5.76923076923077,49
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","RW.a_7B",0,0,0
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","WGG_7B",7,8.75,75
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","WG_7B",0,0,0
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","WY.a_7B",6,6.54545454545455,77
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","WY_7B",1,1.11111111111111,2
+"7B","Trial 2","7/19/22","2","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","YO.a_7B",8,8.88888888888889,99
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","BF.a_7B",13,13.9285714285714,311
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","BG_7B",11,11.5789473684211,92
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","BO_7B",10,11.5384615384615,228
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","BP.a_7B",7,7.63636363636364,67
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","BP_7B",13,14.1818181818182,670
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","BRR_7B",2,2.35294117647059,15
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","FF.a_7B",8,9.05660377358491,67
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","FR_7B",5,5.45454545454546,101
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","FYR_7B",8,8.27586206896552,141
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","FY_7B",8,9.41176470588235,304
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","GF_7B",0,0,0
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","GO_7B",9,9.31034482758621,159
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","GP.a_7B",10,10.3448275862069,227
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","GP_7B",0,0,0
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","GY_7B",0,0,0
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","OB_7B",6,7.2,106
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","OF.a_7B",7,8.4,54
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","OW_7B",1,1.07142857142857,14
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","PF.big_7B",0,0,0
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","PF_7B",0,0,0
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","PG.a_7B",0,0,0
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","PGG_7B",0,0,0
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","PG_7B",8,9.41176470588235,176
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","POO_7B",1,1.15384615384615,2
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","PRR_7B",1,1.07142857142857,5
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","PY.u_7B",10,10.3448275862069,146
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","PY.v_7B",8,9.05660377358491,430
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","PYY_7B",8,9.6,98
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","RB_7B",1,1.07142857142857,14
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","RF_7B",9,10,69
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","ROG_7B",0,0,0
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","RO_7B",10,10.9090909090909,190
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","RWR_7B",0,0,0
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","WGR_7B",3,3.33333333333333,13
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","WOO_7B",6,6.20689655172414,59
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","WOY_7B",3,3.6,17
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","WR.a_7B",4,4.13793103448276,103
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","WRR_7B",3,3.21428571428571,40
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","WR_7B",0,0,0
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","YB_7B",7,7.24137931034483,145
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","YF_7B",0,0,0
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","YP.a_7B",7,7.36842105263158,235
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","YPY_7B",3,3.10344827586207,56
+"7B","Trial 2","7/19/22","2","Peppermint","Changing","Density: High, Number of flowers: High","Northeast","High","High","_7B",0,0,0
+"7B","Trial 2","7/20/22","3","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","BY.a_7B",5,5.76923076923077,24
+"7B","Trial 2","7/20/22","3","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","FFP_7B",3,4,82
+"7B","Trial 2","7/20/22","3","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","FGG_7B",7,7.36842105263158,145
+"7B","Trial 2","7/20/22","3","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","FO.a_7B",0,0,0
+"7B","Trial 2","7/20/22","3","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","FYY_7B",6,7.05882352941176,79
+"7B","Trial 2","7/20/22","3","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","GGW_7B",4,4.8,100
+"7B","Trial 2","7/20/22","3","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","OWW_7B",1,1.13207547169811,7
+"7B","Trial 2","7/20/22","3","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","PBB_7B",5,5.66037735849057,82
+"7B","Trial 2","7/20/22","3","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","PO.a_7B",0,0,0
+"7B","Trial 2","7/20/22","3","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","PO_7B",1,1.11111111111111,2
+"7B","Trial 2","7/20/22","3","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","PR_7B",6,7.2,80
+"7B","Trial 2","7/20/22","3","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","PY.a_7B",1,1.13207547169811,13
+"7B","Trial 2","7/20/22","3","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","WGG_7B",7,8.57142857142857,92
+"7B","Trial 2","7/20/22","3","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","WO_7B",0,0,0
+"7B","Trial 2","7/20/22","3","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","WY.a_7B",11,12.2222222222222,293
+"7B","Trial 2","7/20/22","3","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","WY_7B",0,0,0
+"7B","Trial 2","7/20/22","3","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","YO.a_7B",2,2.72727272727273,4
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","BF.a_7B",8,8.88888888888889,110
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","BG_7B",1,1.03448275862069,1
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","BP.a_7B",2,2.06896551724138,34
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","BP_7B",6,6.92307692307692,78
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","BRR_7B",2,2.30769230769231,7
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","BWW_7B",0,0,0
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","FF.a_7B",2,2.72727272727273,7
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","FR_7B",2,2.5531914893617,14
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","FW_7B",0,0,0
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","FYR_7B",2,2.30769230769231,9
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","FY_7B",4,4.70588235294118,30
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","GP.a_7B",0,0,0
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","GP_7B",0,0,0
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","GY_7B",0,0,0
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","OB_7B",5,5.45454545454546,84
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","OF.a_7B",2,2.44897959183673,15
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","OW_7B",3,3.46153846153846,21
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","PF_7B",4,4.52830188679245,37
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","PG.a_7B",0,0,0
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","PGG_7B",3,3.33333333333333,25
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","PG_7B",7,7.36842105263158,142
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","POO_7B",0,0,0
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","PRR_7B",1,1.15384615384615,1
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","PY.v_7B",1,1.11111111111111,2
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","PYY_7B",0,0,0
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","RB_7B",6,6.92307692307692,42
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","RF_7B",4,4.52830188679245,9
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","ROG_7B",0,0,0
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","RO_7B",1,1.13207547169811,2
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","RWR_7B",0,0,0
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","WGR_7B",1,1.13207547169811,22
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","WO.a_7B",0,0,0
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","WOO_7B",2,2.44897959183673,7
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","WOY_7B",2,2.30769230769231,3
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","WR.a_7B",1,1.42857142857143,1
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","WRR_7B",1,1.05263157894737,8
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","YB_7B",4,4.13793103448276,32
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","YF_7B",5,5.45454545454546,103
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","YP.a_7B",0,0,0
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","YPY_7B",0,0,0
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","YP_7B",0,0,0
+"C","Trial 1","6/15/22","1","Clove","Changing","Density: High, Number of flowers: Low","South","High","Low","BB.a_C",0,0,0
+"C","Trial 1","6/15/22","1","Clove","Changing","Density: High, Number of flowers: Low","South","High","Low","BO.a_C",12,7.5,185
+"C","Trial 1","6/15/22","1","Clove","Changing","Density: High, Number of flowers: Low","South","High","Low","BR_C",0,0,0
+"C","Trial 1","6/15/22","1","Clove","Changing","Density: High, Number of flowers: Low","South","High","Low","FR.a_C",3,2.06896551724138,50
+"C","Trial 1","6/15/22","1","Clove","Changing","Density: High, Number of flowers: Low","South","High","Low","GG.a_C",0,0,0
+"C","Trial 1","6/15/22","1","Clove","Changing","Density: High, Number of flowers: Low","South","High","Low","OB_C",0,0,0
+"C","Trial 1","6/15/22","1","Clove","Changing","Density: High, Number of flowers: Low","South","High","Low","OO.wing_C",0,0,0
+"C","Trial 1","6/15/22","1","Clove","Changing","Density: High, Number of flowers: Low","South","High","Low","OP.a_C",1,0.895522388059702,1
+"C","Trial 1","6/15/22","1","Clove","Changing","Density: High, Number of flowers: Low","South","High","Low","OY.a_C",1,0.652173913043478,5
+"C","Trial 1","6/15/22","1","Clove","Changing","Density: High, Number of flowers: Low","South","High","Low","YP_C",0,0,0
+"C","Trial 1","6/15/22","1","Clove","Changing","Density: High, Number of flowers: Low","South","High","Low","_B.a_C",0,0,0
+"C","Trial 1","6/15/22","1","Clove","Changing","Density: High, Number of flowers: Low","South","High","Low","_P.a_C",0,0,0
+"C","Trial 1","6/15/22","1","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","BF_C",0,0,0
+"C","Trial 1","6/15/22","1","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","BP_C",4,2.35294117647059,54
+"C","Trial 1","6/15/22","1","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","BW_C",10,5.5045871559633,256
+"C","Trial 1","6/15/22","1","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","GR.a_C",5,3.7037037037037,100
+"C","Trial 1","6/15/22","1","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","GW_C",0,0,0
+"C","Trial 1","6/15/22","1","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","RB_C",4,2.5531914893617,80
+"C","Trial 1","6/15/22","1","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","WB_C",0,0,0
+"C","Trial 1","6/16/22","2","Clove","Changing","Density: Low, Number of flowers: Low","South","Low","Low","BB.a_C",1,0.512820512820513,8
+"C","Trial 1","6/16/22","2","Clove","Changing","Density: Low, Number of flowers: Low","South","Low","Low","BO.a_C",6,3,81
+"C","Trial 1","6/16/22","2","Clove","Changing","Density: Low, Number of flowers: Low","South","Low","Low","BR_C",1,0.535714285714286,15
+"C","Trial 1","6/16/22","2","Clove","Changing","Density: Low, Number of flowers: Low","South","Low","Low","FR.a_C",1,0.705882352941176,3
+"C","Trial 1","6/16/22","2","Clove","Changing","Density: Low, Number of flowers: Low","South","Low","Low","GG.a_C",1,0.638297872340426,2
+"C","Trial 1","6/16/22","2","Clove","Changing","Density: Low, Number of flowers: Low","South","Low","Low","OB_C",0,0,0
+"C","Trial 1","6/16/22","2","Clove","Changing","Density: Low, Number of flowers: Low","South","Low","Low","OP.a_C",3,1.71428571428571,13
+"C","Trial 1","6/16/22","2","Clove","Changing","Density: Low, Number of flowers: Low","South","Low","Low","OY.a_C",0,0,0
+"C","Trial 1","6/16/22","2","Clove","Changing","Density: Low, Number of flowers: Low","South","Low","Low","YP_C",0,0,0
+"C","Trial 1","6/16/22","2","Clove","Changing","Density: Low, Number of flowers: Low","South","Low","Low","_B.a_C",2,1.02564102564103,33
+"C","Trial 1","6/16/22","2","Clove","Changing","Density: Low, Number of flowers: Low","South","Low","Low","_P.a_C",0,0,0
+"C","Trial 1","6/16/22","2","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","BF_C",6,3.36448598130841,67
+"C","Trial 1","6/16/22","2","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","BP_C",2,1.21212121212121,24
+"C","Trial 1","6/16/22","2","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","BW_C",0,0,0
+"C","Trial 1","6/16/22","2","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","GR.a_C",2,1.21212121212121,46
+"C","Trial 1","6/16/22","2","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","GW_C",1,0.508474576271186,5
+"C","Trial 1","6/16/22","2","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","RB_C",4,2.12389380530973,51
+"C","Trial 1","6/16/22","2","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","WB_C",2,2.06896551724138,14
+"C","Trial 1","6/17/22","3","Clove","Changing","Density: High, Number of flowers: High","South","High","High","BB.a_C",11,5.89285714285714,190
+"C","Trial 1","6/17/22","3","Clove","Changing","Density: High, Number of flowers: High","South","High","High","BO.a_C",4,4.06779661016949,45
+"C","Trial 1","6/17/22","3","Clove","Changing","Density: High, Number of flowers: High","South","High","High","BR_C",4,2.26415094339623,55
+"C","Trial 1","6/17/22","3","Clove","Changing","Density: High, Number of flowers: High","South","High","High","FR.a_C",3,1.85567010309278,15
+"C","Trial 1","6/17/22","3","Clove","Changing","Density: High, Number of flowers: High","South","High","High","GG.a_C",2,1.01694915254237,18
+"C","Trial 1","6/17/22","3","Clove","Changing","Density: High, Number of flowers: High","South","High","High","OB_C",1,0.530973451327434,9
+"C","Trial 1","6/17/22","3","Clove","Changing","Density: High, Number of flowers: High","South","High","High","OP.a_C",2,1.07142857142857,28
+"C","Trial 1","6/17/22","3","Clove","Changing","Density: High, Number of flowers: High","South","High","High","OY.a_C",2,1.1214953271028,3
+"C","Trial 1","6/17/22","3","Clove","Changing","Density: High, Number of flowers: High","South","High","High","YP_C",3,1.97802197802198,18
+"C","Trial 1","6/17/22","3","Clove","Changing","Density: High, Number of flowers: High","South","High","High","_B.a_C",1,0.566037735849057,1
+"C","Trial 1","6/17/22","3","Clove","Changing","Density: High, Number of flowers: High","South","High","High","_O.a_C",0,0,0
+"C","Trial 1","6/17/22","3","Clove","Changing","Density: High, Number of flowers: High","South","High","High","_P.a_C",0,0,0
+"C","Trial 1","6/17/22","3","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","BF_C",1,0.638297872340426,36
+"C","Trial 1","6/17/22","3","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","BP_C",2,1.15384615384615,31
+"C","Trial 1","6/17/22","3","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","BW_C",1,0.555555555555556,14
+"C","Trial 1","6/17/22","3","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","GR.a_C",2,1.17647058823529,32
+"C","Trial 1","6/17/22","3","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","GW_C",0,0,0
+"C","Trial 1","6/17/22","3","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","RB_C",1,0.504201680672269,10
+"C","Trial 1","6/17/22","3","Peppermint","Constant","Density: High, Number of flowers: Low","Northeast","High","Low","WB_C",0,0,0

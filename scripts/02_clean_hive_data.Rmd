@@ -228,6 +228,30 @@ combined_hive_df <- combined_hive_df %>%
   filter(is.na(Decimal_entrance_time) | (Decimal_entrance_time - Decimal_time > -5)) # either the bee was never recorded in the hive or she was recorded at a reasonable time
 ```
 
+
+# Step : Modify data frame to add figure-relevant info
+
+Adding day and constant/changing so they can be used in the figures:
+
+```{r}
+combined_hive_df <- combined_hive_df %>%
+  # Add standardized "Day" variable for each trial
+  mutate(Day = "0") %>% # initialize Day
+  mutate(Day = ifelse(Date %in% c("6/15/22","7/18/22"), "1", Day)) %>%
+  mutate(Day = ifelse(Date %in% c("6/16/22","7/19/22"), "2", Day)) %>%
+  mutate(Day = ifelse(Date %in% c("6/17/22","7/20/22"), "3", Day)) %>%
+  # Add Constant/Changing based on trial and scent info
+  mutate(Treatment = "Null") %>% # initialize treatment
+  mutate(Treatment = ifelse(Colony == "C" & Scent == "Clove", "Changing", Treatment)) %>%
+  mutate(Treatment = ifelse(Colony == "C" & Scent == "Peppermint", "Constant", Treatment)) %>%
+  mutate(Treatment = ifelse(Colony == "7B" & Scent == "Clove", "Constant", Treatment)) %>%
+  mutate(Treatment = ifelse(Colony == "7B" & Scent == "Peppermint", "Changing", Treatment)) %>%
+  # add trial number based on colony
+  mutate(Trial = ifelse(Colony == "C", "Trial 1", "Trial 2")) %>%
+  mutate(Setup = paste0("Density: ", Density, ", Number of flowers: ", Flower_number))
+```
+
+
 # Step : Write data frame of dances to a csv file
 
 All recorded hive visits:
@@ -254,7 +278,7 @@ combined_hive_df %>%
 
 ```{r}
 hive_summary <- combined_hive_df %>%
-  group_by(Colony, Date, Scent, Site, Density, Flower_number, Bee) %>%
+  group_by(Colony, Trial, Date, Day, Scent, Treatment, Setup, Site, Density, Flower_number, Bee) %>%
   summarize(Dances = sum(Danced, na.rm = F), 
             Dance_rate = ifelse(sum(Danced, na.rm = F) > 0 & mean(Duration) < 0, 1, sum(Danced, na.rm = F) / mean(Duration/60)),
             Waggle_runs = sum(Total_runs, na.rm = F)) %>%
