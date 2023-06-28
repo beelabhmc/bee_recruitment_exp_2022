@@ -25,15 +25,17 @@ library("tidyverse")
 dances_df <- read.csv("cleaned_data/all_dances.csv") %>%
   mutate(Day = as.factor(Day))
 
+# This file has one row per array visit
+array_visits_df <- read.csv("cleaned_data/all_array_visits.csv") %>%
+  mutate(Day = as.factor(Day))
 ```
 
 
-# Step : Modify data frames to add figure-relevant info
+# Step : Modify dance data frame to add figure-relevant info
 
 ```{r}
 dances_df <- dances_df %>%
-  mutate(Integer_time = floor(Decimal_entrance_time)) %>%
-  mutate(Cumul_bees = 0)  # so we can fill in this column below
+  mutate(Integer_time = floor(Decimal_entrance_time))
 ```
 
 
@@ -96,7 +98,7 @@ for (trial_i in trials){
         # get a subset of temp_df
         temp_df_row <- temp_df %>%
           filter(Integer_time <= curr_minute)
-        # get a vector of all bees that entered during that minute
+        # get a vector of all bees that entered during/before that minute
         curr_bees_list <- unique(temp_df_row$Bee)
         # add the cumulative totals to the temporary data frame
         temp_cumul_df$Cumul_bees[row] <- length(curr_bees_list)
@@ -105,6 +107,81 @@ for (trial_i in trials){
       }
       # then add the temporary df to the df we initialized above
       cumulative_df <- rbind(cumulative_df, temp_cumul_df)
+    }
+  }
+}
+```
+
+
+# Step : Modify array data frame to add figure-relevant info
+
+```{r}
+array_visits_df <- array_visits_df
+```
+
+
+# Step : Calculate cumulative bees, dances, and waggle runs
+
+TODO: change this to be for array visits, not dances
+
+```{r}
+## We need to create one list of bees for every trial, day, treatment combination
+## We use these lists to create a smaller data frame with cumulative bees added
+## and then we need to add each of these temporary data frames to a larger
+## data frame
+
+# Here's where the larger data frame is initialized
+cumulative_array_df <- data.frame(Trial = character(),
+                 Day = character(),
+                 Treatment = character(),
+                 Density = character(),
+                 Flower_number = character(),
+                 Minute = integer(),
+                 Cumul_bees = integer())
+
+# Here are all of the options to loop through
+trials <- unique(dances_df$Trial)
+days <- unique(dances_df$Day)
+treatments <- unique(dances_df$Treatment)
+
+for (trial_i in trials){
+  # Trial 1-> 2 hours, Trial 2-> 1 hour
+  if (trial_i == "Trial 1"){
+    minutes <- 1:119
+  } else {
+    minutes <- 1:59
+  }
+  for (day_i in days){
+    for (treatment_i in treatments){
+      # get that subset of rows
+      temp_df <- array_visits_df %>%
+        filter(Trial == trial_i & Day == day_i & Treatment == treatment_i)
+      # get the treatment values to add to the temporary data frame
+      curr_density <- temp_df$Density[1]
+      curr_flower_number <- temp_df$Flower_number[1]
+      curr_setup <- temp_df$Setup[1]
+      # create a temporary df to store the cumulative values
+      temp_cumul_df <- data.frame(Trial = rep(x = trial_i, times = length(minutes)),
+                                  Day = rep(x = day_i, times = length(minutes)),
+                                  Treatment = rep(x = treatment_i, times = length(minutes)),
+                                  Density = rep(x = curr_density, times = length(minutes)),
+                                  Flower_number = rep(x = curr_flower_number, times = length(minutes)),
+                                  Setup = rep(x = curr_setup, times = length(minutes)),
+                                  Minute = minutes,
+                                  Cumul_bees = rep(x = 0, times = length(minutes)))
+      for (row in 1:length(minutes)){
+        # save the minute for the current row
+        curr_minute <- row
+        # get a subset of temp_df
+        temp_df_row <- temp_df %>%
+          filter(Decimal_time <= curr_minute)
+        # get a vector of all bees that were seen during/before that minute
+        curr_bees_list <- unique(temp_df_row$Bee)
+        # add the cumulative totals to the temporary data frame
+        temp_cumul_df$Cumul_bees[row] <- length(curr_bees_list)
+      }
+      # then add the temporary df to the df we initialized above
+      cumulative_array_df <- rbind(cumulative_array_df, temp_cumul_df)
     }
   }
 }
@@ -182,3 +259,23 @@ ggsave("figures/Lineplot_cumulative_waggle_runs.jpg",
        dpi = 300)
 ```
 
+
+Unique bees who visited flower array
+
+```{r}
+cumulative_array_df %>%
+  ggplot(aes(x = Minute, y = Cumul_bees, color = Setup, linetype = Day)) +
+  scale_linetype_manual(values = c("twodash", "solid", "dotted")) +
+  geom_line(linewidth = 1) +
+  labs(y = "Cumulative bees that visted flower array") +
+  facet_grid(Trial~Treatment, scales = "free_y") +  # trials had very different totals
+  theme_light(base_size = 16)
+
+ggsave("figures/Lineplot_cumulative_array_visiting_bees.jpg", 
+       device="jpeg",
+       width = 12,
+       height = 8,
+       units = "in",
+       dpi = 300)
+  
+```
