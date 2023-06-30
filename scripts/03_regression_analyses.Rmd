@@ -3,6 +3,11 @@ title: "R Notebook"
 output: html_notebook
 ---
 
+# Purpose
+
+This script uses generalized linear mixed models to examine the effects of density and number of flowers on the number/rate of dances that bees performed and the number of waggle runs performed per dance. The data are from experiments using arrays of artificial flowers conducted in the summer of 2022.
+
+
 # Set up working directory
 
 ```{r, setup} 
@@ -14,11 +19,10 @@ opts_knit$set(root.dir = normalizePath('../'))
 # Load libraries
 
 ```{r}
-library("tidyverse")
-library("lme4")
-library("nlme")
-library("DHARMa")
-library("car")
+library("tidyverse")  # for wrangling data
+library("lme4")       # for glmer.nb function
+library("nlme")       # for lme function
+library("DHARMa")     # to assess generalized mixed models
 ```
 
 
@@ -33,10 +37,13 @@ bees_df <- read.csv("cleaned_data/per_bee_summary.csv")
 
 ```
 
-# Step : Per bee dances model
+
+# Step : Dances per bee (per day) model
+
+* __Question__: Does it make sense to include trial as a fixed effect here? I did this because I wanted to be consistent with the model below looking at waggle runs per dance.
 
 ```{r}
-model_dances <- glmer.nb(Dances ~ Density + Flower_number + Colony + (1|Date),
+model_dances <- glmer.nb(Dances ~ Density + Flower_number + Trial + (1|Date),
                          data = bees_df)
 
 summary(model_dances)
@@ -51,13 +58,15 @@ testUniformity(sim_model_dances)
 testOutliers(sim_model_dances)
 ```
 
-I don't know how best to fix this because a Poisson regression was worse.
+* __Question__: I don't know how problematic this overdispersion is. Do you think we can trust this model?
 
 
-# Step : Per bee dance_rate model
+# Step : Dance rate per bee (dances/hour) model
+
+* __Question__: If we were to use dance rate rather than dances per bee, then we can't use a negative binomial generalized model because we no longer have count data. I tried just a normal mixed model (see below), but you can see below that the residuals are not normally distributed. Maybe this is moot point if we are going with dances per bee, but what would you recommend?
 
 ```{r}
-model_dance_rate <- lme(Dance_rate ~ Density + Flower_number + Colony,
+model_dance_rate <- lme(Dance_rate ~ Density + Flower_number + Trial,
                         random = ~1|Date,
                         data = bees_df)
 
@@ -70,12 +79,25 @@ Testing model fit with plot:
 qqnorm(resid(model_dance_rate))
 qqline(resid(model_dance_rate))
 ```
-The DHARMa package does not seem to work for lme models. This qqplot looks worrying, especially at the lower theoretical values. I tried transformations (sqrt(x), log(x + 1)), but they don't seem to help.
+This seems worrying, but I wanted to clearer answer about whether the residuals were normally-distributed. Unfortunately, the DHARMa package does not seem to work for lme models.
 
-# Step : Per dance waggle run model
+I wanted to use a Kolmogorov-Smirnov test to see if the residuals are normally distributed so that it was consistent with the DHARMa output, but it can't handle ties so I used a Shapiro-Wilk test instead:
 
 ```{r}
-model_waggle_runs <- glmer.nb(Total_runs ~ Density + Flower_number + Colony + (1|Bee/Date),
+shapiro.test(resid(model_dance_rate))
+```
+
+So that's clearly not normal.
+
+My next thought was to try some transformations, but none of the standard transformations I tried helped (log+1, sqrt, square).
+
+
+# Step : Waggle runs per dance model
+
+* __Question__: Excluding Trial does not appear to change the result, but this seems wrong as Trial was a very important factor in determining dances per bee. Unfortunately, adding Trial as a random effect (bee nested in date nested in colony) causes the model to not converge. Does it seem reasonable to include it as a fixed effect or should we exclude it entirely because it has no significant effect?
+
+```{r}
+model_waggle_runs <- glmer.nb(Total_runs ~ Density + Flower_number + Trial + (1|Bee/Date),
                               data = dances_df)
 
 summary(model_waggle_runs)
@@ -90,5 +112,5 @@ testUniformity(sim_model_waggle_runs)
 testOutliers(sim_model_waggle_runs)
 ```
 
-This seems reasonable to me. No significant over/underdispersion and the qqplot looks good. Excluding Colony does not appear to change the result but adding colony as a random effect (bee nested in date nested in colony) causes the model to not converge.
+This seems reasonable to me. KS test non-significant, no significant over/underdispersion, and the qqplot looks good. 
 

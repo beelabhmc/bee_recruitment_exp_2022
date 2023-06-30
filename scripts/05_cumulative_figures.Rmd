@@ -3,6 +3,11 @@ title: "R Notebook"
 output: html_notebook
 ---
 
+# Purpose
+
+This script creates the cumulative figures to show how density and number of flowers affected the accumulation of bees visiting the arrays, bees engaged in dancing, dances, and waggle runs at the colony level. The data are from experiments using arrays of artificial flowers conducted in the summer of 2022.
+
+
 # Set up working directory
 
 ```{r, setup} 
@@ -23,15 +28,15 @@ library("tidyverse")
 ```{r}
 # This file has one row per hive visit
 dances_df <- read.csv("cleaned_data/all_dances.csv") %>%
-  mutate(Day = as.factor(Day))
+  mutate(Day = as.factor(Day))  # this was read in as an integer vector
 
 # This file has one row per array visit
 array_visits_df <- read.csv("cleaned_data/all_array_visits.csv") %>%
-  mutate(Day = as.factor(Day))
+  mutate(Day = as.factor(Day))  # this was read in as an integer vector
 ```
 
 
-# Step : Modify dance data frame to add figure-relevant info
+# Step : Add a column so we can get cumulative totals per minute of each trial
 
 ```{r}
 dances_df <- dances_df %>%
@@ -65,6 +70,7 @@ trials <- unique(dances_df$Trial)
 days <- unique(dances_df$Day)
 treatments <- unique(dances_df$Treatment)
 
+# Now we start the loops
 for (trial_i in trials){
   # Trial 1-> 2 hours, Trial 2-> 1 hour
   if (trial_i == "Trial 1"){
@@ -113,16 +119,9 @@ for (trial_i in trials){
 ```
 
 
-# Step : Modify array data frame to add figure-relevant info
-
-```{r}
-array_visits_df <- array_visits_df
-```
-
-
 # Step : Calculate cumulative bees, dances, and waggle runs
 
-TODO: change this to be for array visits, not dances
+This is a very similar process to the one above for dances, but with the data on visits by bees to the flower arrays instead.
 
 ```{r}
 ## We need to create one list of bees for every trial, day, treatment combination
@@ -144,6 +143,7 @@ trials <- unique(dances_df$Trial)
 days <- unique(dances_df$Day)
 treatments <- unique(dances_df$Treatment)
 
+# Now we start the loops
 for (trial_i in trials){
   # Trial 1-> 2 hours, Trial 2-> 1 hour
   if (trial_i == "Trial 1"){
@@ -174,7 +174,7 @@ for (trial_i in trials){
         curr_minute <- row
         # get a subset of temp_df
         temp_df_row <- temp_df %>%
-          filter(Decimal_time <= curr_minute)
+          filter(Array_time <= curr_minute)
         # get a vector of all bees that were seen during/before that minute
         curr_bees_list <- unique(temp_df_row$Bee)
         # add the cumulative totals to the temporary data frame
@@ -260,7 +260,7 @@ ggsave("figures/Lineplot_cumulative_waggle_runs.jpg",
 ```
 
 
-Unique bees who visited flower array
+Unique bees who visited flower array- this shows how many bees could possibly have decided to contribute to the number of dances and waggle runs.
 
 ```{r}
 cumulative_array_df %>%

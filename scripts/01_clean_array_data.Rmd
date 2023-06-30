@@ -3,6 +3,11 @@ title: "R Notebook"
 output: html_notebook
 ---
 
+# Purpose
+
+This script processes data are from experiments using arrays of artificial flowers conducted in the summer of 2022. Specifically, it cleans and reorganizes data from records of bees visiting the artificial arrays of flowers on six mornings (2 trials).
+
+
 # Set up working directory
 
 ```{r, setup} 
@@ -10,11 +15,13 @@ library(knitr)
 opts_knit$set(root.dir = normalizePath('../'))
 ```
 
+
 # Load libraries
 
 ```{r}
 library(tidyverse)
 ```
+
 
 # Step : Read in flower array files
 
@@ -65,11 +72,13 @@ names(array_dfs) <- c("array_clove_0718",
                )
 ```
 
+
 # Step : Select only valid, double-marked bee columns
 
 Function to select columns:
 
 ```{r}
+# Remove columns that are not helpful for analyses
 select_valid_bee_columns <- function(df){
   df <- df %>%
     select(!starts_with("Time")) %>%  # to keep hours:minutes into video
@@ -81,14 +90,19 @@ select_valid_bee_columns <- function(df){
 }
 ```
 
+Apply this to all data frames in the list
+
 ```{r}
 for (i in 1:length(array_dfs)){
   array_dfs[[i]] <- select_valid_bee_columns(array_dfs[[i]])
-  list2env(array_dfs,.GlobalEnv)
+  list2env(array_dfs,.GlobalEnv) # this is needed to modify the arrays globally rather than locally
 }
 ```
 
+
 # Step : Convert any text in bee observation columns to 1s
+
+Some columns contain notes rather than 1s because I was making an educated guess about the true ID of the bee (we said an impossible ID in the tape). I think it is reasonable to assume that these guesses are mostly accurate.
 
 ```{r}
 convert_text_to_ones <- function(df){
@@ -121,6 +135,8 @@ convert_text_to_ones <- function(df){
 }
 ```
 
+Apply this to the data frames in the list
+
 ```{r}
 for (i in 1:length(array_dfs)){
   array_dfs[[i]] <- convert_text_to_ones(array_dfs[[i]])
@@ -128,7 +144,10 @@ for (i in 1:length(array_dfs)){
 }
 ```
 
+
 # Step : Convert flower array data frames so rows represent each bee sighting
+
+Once we convert all of the data frames to a long format, we can combine them because they will have the same columns.
 
 ```{r}
 convert_to_long_format <- . %>%
@@ -137,6 +156,8 @@ convert_to_long_format <- . %>%
                values_to = "Observed") %>%
   filter(Observed == 1)
 ```
+
+Apply this to data frames
 
 ```{r}
 for (i in 1:length(array_dfs)){
@@ -147,6 +168,8 @@ for (i in 1:length(array_dfs)){
 
 
 # Step : Add date, colony, scent, site, density, and flower number columns and combine all data frames into one
+
+These variables are necessary for analyzing the data.
 
 ```{r}
 array_clove_0718 <- array_clove_0718 %>%
@@ -282,6 +305,8 @@ combined_array_df <- combined_array_df %>%
 
 # Step : Fix Bee IDs that start with X
 
+Some uniquely-marked bees in Trial one only had one mark on the abdomen, and we used ID such as "_B" to refer to them. Unfortunately, R automatically adds an X to the beginning of those column names so after we pivot to a long format we need to fix those IDs so that they will match the hive data.
+
 ```{r}
 combined_array_df <- combined_array_df %>%
     mutate(Bee = gsub(pattern = "X",
@@ -292,6 +317,8 @@ combined_array_df <- combined_array_df %>%
 
 # Step : Add time into trial and write out full data frame
 
+We need to be able to compare the time of the first observed visit to the flower array to the first observed trip back to the hive. At first I thought using the datetime class in lubridate would help, but it really seems simpler to just work with minutes into the trial (up to 2 hours in Trial 1 and up to 1 hour in Trial 2).
+
 ```{r}
 combined_array_df <- combined_array_df %>%
   separate_wider_delim(cols = Vid_time_interval,
@@ -299,8 +326,10 @@ combined_array_df <- combined_array_df %>%
                        names = c("Hour","Minute")) %>%
   mutate(Hour = as.double(Hour)) %>%
   mutate(Minute = as.double(Minute)) %>%
-  mutate(Decimal_time = (Hour*60) + Minute)
+  mutate(Array_time = (Hour*60) + Minute)
 ```
+
+And we'll save all of the visits so we can get cumulative bees visiting the arrays later.
 
 ```{r}
 write.csv(combined_array_df,
@@ -311,11 +340,15 @@ write.csv(combined_array_df,
 
 # Step : Create new data frame with first sighting of each bee and length of time bee could have visited flower array
 
+To compare with the hive data, what we really need is a summary with one row for each bee-day combination.
+
 ```{r}
 combined_array_df <- combined_array_df %>%
   group_by(Colony, Trial, Date, Day, Scent, Treatment, Setup, Site, Density, Flower_number, Bee) %>%
-  summarize(Decimal_time = min(Decimal_time)) %>%
-  mutate(Duration = ifelse(Colony == "7B", 60 - Decimal_time, 120 - Decimal_time))
+  summarize(Array_time = min(Array_time)) %>%
+  # then we can add the amount of time between when we first saw them and the end of the trial
+  # which is important later for getting the dance rate
+  mutate(Duration = ifelse(Colony == "7B", 60 - Array_time, 120 - Array_time))
 ```
 
 

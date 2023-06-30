@@ -1,4 +1,4 @@
-"Colony","Trial","Date","Day","Scent","Treatment","Setup","Site","Density","Flower_number","Bee","Decimal_time","Duration"
+"Colony","Trial","Date","Day","Scent","Treatment","Setup","Site","Density","Flower_number","Bee","Array_time","Duration"
 "7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","BR_7B",23,37
 "7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","BW.a_7B",19,41
 "7B","Trial 2","7/18/22","1","Clove","Constant","Density: High, Number of flowers: Low","South","High","Low","BY.a_7B",17,43
@@ -182,6 +182,7 @@
 "7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","WOY_7B",8,52
 "7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","WR.a_7B",18,42
 "7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","WRR_7B",3,57
+"7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","WR_7B",43,17
 "7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","YB_7B",2,58
 "7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","YF_7B",5,55
 "7B","Trial 2","7/20/22","3","Peppermint","Changing","Density: Low, Number of flowers: Low","Northeast","Low","Low","YP.a_7B",29,31

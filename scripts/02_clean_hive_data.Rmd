@@ -3,6 +3,11 @@ title: "R Notebook"
 output: html_notebook
 ---
 
+# Purpose
+
+This script processes data are from experiments using arrays of artificial flowers conducted in the summer of 2022. Specifically, it cleans and reorganizes data from records of bees returning to the hive after visiting artificial flower arrays on six mornings (2 trials). It uses output from 01_clean_array_data to add information about which array each bee had visited and to add bees that visited the arrays but never danced (and thus perhaps we have no data about those bees in the hive spreadsheets).
+
+
 # Set up working directory
 
 ```{r, setup} 
@@ -10,13 +15,15 @@ library(knitr)
 opts_knit$set(root.dir = normalizePath('../'))
 ```
 
+
 # Load libraries
 
 ```{r}
 library(tidyverse)
 ```
 
-# Step : Read in hive csv files
+
+# Step : Read in hive and flower array csv files
 
 ```{r}
 hive_0615 <- read.csv("data/0615_VideoAnalysis.csv")
@@ -27,6 +34,9 @@ hive_0718 <- read.csv("data/0718_VideoAnalysis.csv", skip = 1)
 hive_0719 <- read.csv("data/0719_VideoAnalysis.csv", skip = 1)
 hive_0720 <- read.csv("data/0720_VideoAnalysis.csv", skip = 1) %>%
   filter(Bee != "")  # for some reason there were many blank lines
+
+# Output from 01_clean_array_data.Rmd
+array_df <- read.csv("cleaned_data/combined_flower_array_data.csv")
 ```
 
 Make a list of these data frames to process more efficiently (the for loops that iterate over this list are based on code from this Stack Overflow answer https://stackoverflow.com/a/62216494):
@@ -48,6 +58,7 @@ names(hive_dfs) <- c("hive_0615",
                )
 ```
 
+
 # Step : Select columns we will use
 
 These include:
@@ -59,6 +70,8 @@ These include:
 * Entrance second
 * Danced
 * Bouts columns (1-14)
+
+_Note:_ Bouts are not really meaningful. They are just groupings of waggle runs that were convenient while recording data and do not necessarily represent sets of waggle runs with a certain duration gap in between them. We just sum them to get the Total_runs for each dance (or 0 for visits without a dance).
 
 ```{r}
 select_hive_columns <- . %>%
@@ -94,6 +107,8 @@ for (i in 1:length(hive_dfs)){
 
 # Step : Combine hive data frames into one
 
+Now that we have just those columns, we'll combine the data frames.
+
 ```{r}
 combined_hive_df <- rbind(hive_dfs[[1]], hive_dfs[[2]])
 for (i in 3:length(hive_dfs)){
@@ -104,7 +119,7 @@ for (i in 3:length(hive_dfs)){
 
 # Step : Convert bee IDs to standard format
 
-Use periods instead of dashes to match the flower array ID format and add Colony to the bee ID to deal with repeated color combinations across trials of the experiment
+Use periods instead of dashes to match the flower array ID format and add Colony to the bee ID to deal with repeated color combinations used across trials of the experiment
 
 ```{r}
 for (row in 1:length(combined_hive_df$Bee)){
@@ -113,7 +128,8 @@ for (row in 1:length(combined_hive_df$Bee)){
                         replacement = ".",
                         x = combined_hive_df$Bee[row])
 }
-  
+
+# Add colony ID to bee ID (bee "BO" from colony "7B" -> "BO_7B")
 combined_hive_df <- combined_hive_df %>%
   mutate(Bee = paste(Bee, Colony, sep = "_"))
 
@@ -158,11 +174,15 @@ combined_hive_df <- combined_hive_df %>%
                           Bout_13,
                           Bout_14)
                           ),
-                          na.rm = T))
+                          na.rm = T)) %>%
+  # and now we don't need all those Bout columns
+  select(!starts_with("Bout"))
 ```
 
 
-# Step : Fix Bee IDs that differed in flower array records
+# Step : Fix Bee IDs that differed in flower array records and remove problematic bees
+
+There were unfortunately some problems created by using paints with so many similar colors and one bee appeared to visit both the array and surrounding flowers (for pollen) so the code below corrects problems that can be corrected and removes bees that cannot be sorted out.
 
 ```{r}
 combined_hive_df <- combined_hive_df %>%
@@ -170,10 +190,13 @@ combined_hive_df <- combined_hive_df %>%
   # consistent with her appearance
   mutate(Bee = ifelse(Bee == "OP.a_7B", "OF.a_7B", Bee)) %>%
   # Unfortunately, GY and GP seem to be indistinguishable
+  # I think it was always GY that was dancing, but both clearly visited and
+  # their marks are not consistently different
   filter(Bee != "GP_7B") %>%
   filter(Bee != "GY_7B") %>%
-  # Also, BWW is difficult to distinguish from BW and may have visited
-  # both arrays at different times
+  # Also, BWW is difficult to distinguish from BW 
+  # and it's possible that she is the same bee who may have visited
+  # both arrays at different times (mostly tremble danced)
   filter(Bee != "BWW_7B") %>%
   # WR was seen with pollen on her legs after visiting the feeder
   # so I think she may have been visiting multiple sources
@@ -181,14 +204,9 @@ combined_hive_df <- combined_hive_df %>%
 ```
 
 
-# Step : Read in the flower array summary csv files created by 01_clean_array_data.Rmd:
-
-```{r}
-array_df <- read.csv("cleaned_data/combined_flower_array_data.csv")
-```
-
-
 # Step : Combine hive data with flower array data
+
+A full join allows us to assign information about the array each bee was visiting and the treatment on that day as well as to add in bees that never danced (and thus should be recorded as performing 0 dances for later analysis).
 
 ```{r}
 combined_hive_df <- combined_hive_df %>%
@@ -200,32 +218,40 @@ Then we can check that the bees that visited the hive but weren't recorded at a 
 
 ```{r}
 combined_hive_df %>%
-  filter(is.na(Decimal_time)) %>%
+  filter(is.na(Array_time)) %>%
   group_by(Date, Bee) %>%
   summarize()
 ```
+On 7-18-22:
 
-And we can remove them:
+* RB-a appears to enter the hive once but then wanders around and follows a few dances- she may not have visited any food source
+* WG appears to enter the hive once but was not recorded at the array and didn't dance
+
+On 7-20-22: 
+
+* GWW entered the hive once. She didn't dance, and I assume she was visiting something else (the extra white may even have been pollen)
+
+So we can remove them:
 
 ```{r}
 combined_hive_df <- combined_hive_df %>%
-  filter(!is.na(Decimal_time))
+  filter(!is.na(Array_time))
 ```
 
-Now we can check how many dances were too early:
+Now we can check how many dances were earlier than the first time we saw that bee at the array:
 
 ```{r}
 combined_hive_df %>%
   filter(Danced == 1) %>%
-  filter(Decimal_entrance_time < Decimal_time) %>%
-  select(Date, Bee, Decimal_entrance_time, Decimal_time)
+  filter(Decimal_entrance_time < Array_time) %>%
+  select(Date, Bee, Decimal_entrance_time, Array_time)
 ```
 
 Based on this, I think it makes sense to give some leeway of 5 minutes (approximately one trip) in trial 2 because it was hard to keep track of every flower array visit.
 
 ```{r}
 combined_hive_df <- combined_hive_df %>%
-  filter(is.na(Decimal_entrance_time) | (Decimal_entrance_time - Decimal_time > -5)) # either the bee was never recorded in the hive or she was recorded at a reasonable time
+  filter(is.na(Decimal_entrance_time) | (Decimal_entrance_time - Array_time > -5)) # either the bee was never recorded in the hive or she was recorded at a reasonable time
 ```
 
 
@@ -235,8 +261,8 @@ All recorded hive visits:
 
 ```{r}
 combined_hive_df %>%
-  filter(!is.na(Danced)) %>%
-write.csv(.,
+  filter(!is.na(Danced)) %>%  # either 0 or 1 in the Danced column means it is a hive record
+  write.csv(.,
           "cleaned_data/all_hive_visits.csv",
           row.names = F)
 ```
@@ -251,7 +277,8 @@ combined_hive_df %>%
           row.names = F)
 ```
 
-# Step : Make a summary by bee and date
+
+# Step : Make a summary by bee and date (and include all treatment info)
 
 ```{r}
 hive_summary <- combined_hive_df %>%
@@ -259,6 +286,8 @@ hive_summary <- combined_hive_df %>%
   summarize(Dances = sum(Danced, na.rm = F), 
             Dance_rate = ifelse(sum(Danced, na.rm = F) > 0 & mean(Duration) < 0, 1, sum(Danced, na.rm = F) / mean(Duration/60)),
             Waggle_runs = sum(Total_runs, na.rm = F)) %>%
+  # if the bee was added because she appears in the array records but not the hive records
+  # we need to make the following columns 0 for later analyses
   mutate(Dances = ifelse(is.na(Dances), 0, Dances)) %>%
   mutate(Dance_rate = ifelse(is.na(Dance_rate), 0, Dance_rate)) %>%
   mutate(Waggle_runs = ifelse(is.na(Waggle_runs), 0, Waggle_runs))
