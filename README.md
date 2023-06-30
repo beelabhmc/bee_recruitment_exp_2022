@@ -46,10 +46,6 @@ The experiment involved two trials, one from June 15, 2022 to June 17, 2022 and 
   + input: cleaned_data/all_dances.csv, cleaned_data/all_hive_visits.csv
   + output: all "Lineplot" jpg files in figures folder
 
-### figures
-
-This folder contains all figures made using ggplot in scripts 04 and 05.
-
 ### data (you will need to download this separately from: )
 
 The data folder contains the original data spreadsheets in csv format for each of the artificial flower arrays and the observation hive on all six days of the experiment. The prefix of each file indicates the date in MMDD format. "Peppermint" and "Clove" indicate the scent used in the syrup at a flower array. "FeederVisits" and "VideoAnalysis" indicate array data and hive data, respectively.
@@ -82,6 +78,10 @@ This folder contains processed data from the first two scripts:
 
   + output of 02_clean_hive_data.Rmd 
   + This file contains one row per bee with both the dance information (did she dance and, if so, how many waggle runs?) and array information (when did we first note her visiting the array and how long did she have to potentially dance during the trial)
+
+### figures (this will be created by the scripts)
+
+This folder contains all figures made using ggplot in scripts 04 and 05.
 
 
 ## Getting started
