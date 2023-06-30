@@ -1,6 +1,6 @@
 # bee_recruitment_exp_2022
 
-# Project description
+## Project description
 
 This repository contains files and scripts to analyze them from an experiment on honey bee recruitment behavior conducted in the summer of 2022. The purpose of that experiment was to determine how the:
 
@@ -17,9 +17,9 @@ We tested this using arrays of 3D-printed artificial flowers which had cotton wi
 The experiment involved two trials, one from June 15, 2022 to June 17, 2022 and the other from July 18, 2022 to July 20, 2022.
 
 
-# File organization description
+## File organization description
 
-## scripts
+### scripts
 
 * 01_clean_array_data.Rmd:
 
@@ -46,15 +46,15 @@ The experiment involved two trials, one from June 15, 2022 to June 17, 2022 and 
   + input: cleaned_data/all_dances.csv, cleaned_data/all_hive_visits.csv
   + output: all "Lineplot" jpg files in figures folder
 
-## figures
+### figures
 
 This folder contains all figures made using ggplot in scripts 04 and 05.
 
-## data (you will need to download this separately from: )
+### data (you will need to download this separately from: )
 
 The data folder contains the original data spreadsheets in csv format for each of the artificial flower arrays and the observation hive on all six days of the experiment. The prefix of each file indicates the date in MMDD format. "Peppermint" and "Clove" indicate the scent used in the syrup at a flower array. "FeederVisits" and "VideoAnalysis" indicate array data and hive data, respectively.
 
-## cleaned_data (this will be created by the scripts)
+### cleaned_data (this will be created by the scripts)
 
 This folder contains processed data from the first two scripts:
 
@@ -84,7 +84,7 @@ This folder contains processed data from the first two scripts:
   + This file contains one row per bee with both the dance information (did she dance and, if so, how many waggle runs?) and array information (when did we first note her visiting the array and how long did she have to potentially dance during the trial)
 
 
-# Getting started
+## Getting started
 
 If you clone this repository, all the necessary data will be in the data folder. You will need to install several packages before running the R notebook scripts:
 
