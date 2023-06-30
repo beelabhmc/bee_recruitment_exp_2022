@@ -255,6 +255,15 @@ combined_hive_df <- combined_hive_df %>%
 ```
 
 
+# Step : Create "cleaned_data" folder if needed
+
+```{r}
+if (!dir.exists("cleaned_data")){
+  dir.create("cleaned_data")
+}
+```
+
+
 # Step : Write data frame of dances to a csv file
 
 All recorded hive visits:

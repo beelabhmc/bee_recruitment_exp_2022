@@ -315,6 +315,15 @@ combined_array_df <- combined_array_df %>%
 ```
 
 
+# Step : Create "cleaned_data" folder if needed
+
+```{r}
+if (!dir.exists("cleaned_data")){
+  dir.create("cleaned_data")
+}
+```
+
+
 # Step : Add time into trial and write out full data frame
 
 We need to be able to compare the time of the first observed visit to the flower array to the first observed trip back to the hive. At first I thought using the datetime class in lubridate would help, but it really seems simpler to just work with minutes into the trial (up to 2 hours in Trial 1 and up to 1 hour in Trial 2).
