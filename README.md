@@ -19,39 +19,6 @@ The experiment involved two trials, one from June 15, 2022 to June 17, 2022 and 
 
 # File organization description
 
-## data
-
-The data folder contains the original data spreadsheets in csv format for each of the artificial flower arrays and the observation hive on all six days of the experiment. The prefix of each file indicates the date in MMDD format. "Peppermint" and "Clove" indicate the scent used in the syrup at a flower array. "FeederVisits" and "VideoAnalysis" indicate array data and hive data, respectively.
-
-## cleaned_data
-
-This folder contains processed data from the first two scripts:
-
-* all_array_visits.csv
-
-  + output of 01_clean_array_data.Rmd
-  + This contains one row for each time we recorded that a given bee was drinking at an artificial flower in one of the arrays
-
-* all_dances.csv: 
-
-  + output of 02)clean_hive_data.Rmd
-  + This contains one row for every return to the hive we noted by a bee in which we counted at least one waggle run
-  
-* all_hive_visits.csv: 
-
-  + output of 02_clean_hive_data.Rmd
-  + This contains one row for every return to the hive we noted, including hive visits where the bee performed no waggle runs
-
-* combined_flower_array_data.csv: 
-
-  + output of 01_clean_array_data.Rmd
-  + This file contains the array visit data summarized by bee and date, including the first time we noted that bee at that array and the total time she would have during the trial to potentially dance to advertize the array
-  
-* per_bee_summary.csv: 
-
-  + output of 02_clean_hive_data.Rmd 
-  + This file contains one row per bee with both the dance information (did she dance and, if so, how many waggle runs?) and array information (when did we first note her visiting the array and how long did she have to potentially dance during the trial)
-
 ## scripts
 
 * 01_clean_array_data.Rmd:
@@ -82,6 +49,39 @@ This folder contains processed data from the first two scripts:
 ## figures
 
 This folder contains all figures made using ggplot in scripts 04 and 05.
+
+## data (you will need to download this separately from: )
+
+The data folder contains the original data spreadsheets in csv format for each of the artificial flower arrays and the observation hive on all six days of the experiment. The prefix of each file indicates the date in MMDD format. "Peppermint" and "Clove" indicate the scent used in the syrup at a flower array. "FeederVisits" and "VideoAnalysis" indicate array data and hive data, respectively.
+
+## cleaned_data (this will be created by the scripts)
+
+This folder contains processed data from the first two scripts:
+
+* all_array_visits.csv
+
+  + output of 01_clean_array_data.Rmd
+  + This contains one row for each time we recorded that a given bee was drinking at an artificial flower in one of the arrays
+
+* all_dances.csv: 
+
+  + output of 02)clean_hive_data.Rmd
+  + This contains one row for every return to the hive we noted by a bee in which we counted at least one waggle run
+  
+* all_hive_visits.csv: 
+
+  + output of 02_clean_hive_data.Rmd
+  + This contains one row for every return to the hive we noted, including hive visits where the bee performed no waggle runs
+
+* combined_flower_array_data.csv: 
+
+  + output of 01_clean_array_data.Rmd
+  + This file contains the array visit data summarized by bee and date, including the first time we noted that bee at that array and the total time she would have during the trial to potentially dance to advertize the array
+  
+* per_bee_summary.csv: 
+
+  + output of 02_clean_hive_data.Rmd 
+  + This file contains one row per bee with both the dance information (did she dance and, if so, how many waggle runs?) and array information (when did we first note her visiting the array and how long did she have to potentially dance during the trial)
 
 
 # Getting started
