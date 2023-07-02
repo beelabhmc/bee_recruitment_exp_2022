@@ -27,11 +27,11 @@ library("tidyverse")
 
 ```{r}
 # This file has one row per dance
-dances_df <- read.csv("cleaned_data/all_dances.csv") %>%
+dances_df <- read.csv("cleaned_data/02_all_dances.csv") %>%
   mutate(Day = as.factor(Day))
 
 # This file has one row per uniquely-IDed bee
-bees_df <- read.csv("cleaned_data/per_bee_summary.csv") %>%
+bees_df <- read.csv("cleaned_data/02_per_bee_summary.csv") %>%
   mutate(Day = as.factor(Day))
 
 ```
@@ -58,7 +58,7 @@ bees_df %>%
   facet_grid(Trial~Treatment, scales = "free_y") +
   theme_classic(base_size = 16)
 
-ggsave("figures/Boxplot_dances_per_bee.jpg", 
+ggsave("figures/04_boxplot_dances_per_bee.jpg", 
        device="jpeg",
        width = 12,
        height = 8,
@@ -76,7 +76,7 @@ bees_df %>%
   facet_grid(Trial~Treatment, scales = "free_y") +
   theme_classic(base_size = 16)
 
-ggsave("figures/Boxplot_dance_rate_per_bee.jpg", 
+ggsave("figures/04_boxplot_dance_rate_per_bee.jpg", 
        device="jpeg",
        width = 12,
        height = 8,
@@ -94,7 +94,7 @@ dances_df %>%
   facet_grid(Trial~Treatment, scales = "free_y")+
   theme_classic(base_size = 16)
 
-ggsave("figures/Boxplot_waggle_runs_per_dance.jpg", 
+ggsave("figures/04_boxplot_waggle_runs_per_dance.jpg", 
        device="jpeg",
        width = 12,
        height = 8,

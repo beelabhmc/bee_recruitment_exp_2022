@@ -27,11 +27,11 @@ library("tidyverse")
 
 ```{r}
 # This file has one row per hive visit
-dances_df <- read.csv("cleaned_data/all_dances.csv") %>%
+dances_df <- read.csv("cleaned_data/02_all_dances.csv") %>%
   mutate(Day = as.factor(Day))  # this was read in as an integer vector
 
 # This file has one row per array visit
-array_visits_df <- read.csv("cleaned_data/all_array_visits.csv") %>%
+array_visits_df <- read.csv("cleaned_data/01_all_array_visits.csv") %>%
   mutate(Day = as.factor(Day))  # this was read in as an integer vector
 ```
 
@@ -210,7 +210,7 @@ cumulative_df %>%
   facet_grid(Trial~Treatment, scales = "free_y") +  # trials had very different totals
   theme_light(base_size = 16)
 
-ggsave("figures/Lineplot_cumulative_dancing_bees.jpg", 
+ggsave("figures/05_lineplot_cumulative_dancing_bees.jpg", 
        device="jpeg",
        width = 12,
        height = 8,
@@ -231,7 +231,7 @@ cumulative_df %>%
   theme_light(base_size = 16)
 
 
-ggsave("figures/Lineplot_cumulative_dances.jpg", 
+ggsave("figures/05_lineplot_cumulative_dances.jpg", 
        device="jpeg",
        width = 12,
        height = 8,
@@ -251,7 +251,7 @@ cumulative_df %>%
   theme_light(base_size = 16)
   
 
-ggsave("figures/Lineplot_cumulative_waggle_runs.jpg", 
+ggsave("figures/05_lineplot_cumulative_waggle_runs.jpg", 
        device="jpeg",
        width = 12,
        height = 8,
@@ -271,7 +271,7 @@ cumulative_array_df %>%
   facet_grid(Trial~Treatment, scales = "free_y") +  # trials had very different totals
   theme_light(base_size = 16)
 
-ggsave("figures/Lineplot_cumulative_array_visiting_bees.jpg", 
+ggsave("figures/05_lineplot_cumulative_array_visiting_bees.jpg", 
        device="jpeg",
        width = 12,
        height = 8,

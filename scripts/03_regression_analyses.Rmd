@@ -30,10 +30,10 @@ library("DHARMa")     # to assess generalized mixed models
 
 ```{r}
 # This file has one row per dance
-dances_df <- read.csv("cleaned_data/all_dances.csv")
+dances_df <- read.csv("cleaned_data/02_all_dances.csv")
 
 # This file has one row per uniquely-IDed bee
-bees_df <- read.csv("cleaned_data/per_bee_summary.csv")
+bees_df <- read.csv("cleaned_data/02_per_bee_summary.csv")
 
 ```
 

@@ -36,7 +36,7 @@ hive_0720 <- read.csv("data/0720_VideoAnalysis.csv", skip = 1) %>%
   filter(Bee != "")  # for some reason there were many blank lines
 
 # Output from 01_clean_array_data.Rmd
-array_df <- read.csv("cleaned_data/combined_flower_array_data.csv")
+array_df <- read.csv("cleaned_data/01_combined_flower_array_data.csv")
 ```
 
 Make a list of these data frames to process more efficiently (the for loops that iterate over this list are based on code from this Stack Overflow answer https://stackoverflow.com/a/62216494):
@@ -272,7 +272,7 @@ All recorded hive visits:
 combined_hive_df %>%
   filter(!is.na(Danced)) %>%  # either 0 or 1 in the Danced column means it is a hive record
   write.csv(.,
-          "cleaned_data/all_hive_visits.csv",
+          "cleaned_data/02_all_hive_visits.csv",
           row.names = F)
 ```
 
@@ -282,7 +282,7 @@ All recorded hive visits that included at least one waggle run:
 combined_hive_df %>%
   filter(Danced == 1) %>%
   write.csv(., 
-          "cleaned_data/all_dances.csv", 
+          "cleaned_data/02_all_dances.csv", 
           row.names = F)
 ```
 
@@ -306,6 +306,6 @@ Write the summary to a csv file:
 
 ```{r}
 write.csv(hive_summary,
-          "cleaned_data/per_bee_summary.csv",
+          "cleaned_data/02_per_bee_summary.csv",
           row.names = F)
 ```

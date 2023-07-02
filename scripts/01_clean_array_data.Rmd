@@ -342,7 +342,7 @@ And we'll save all of the visits so we can get cumulative bees visiting the arra
 
 ```{r}
 write.csv(combined_array_df,
-          "cleaned_data/all_array_visits.csv",
+          "cleaned_data/01_all_array_visits.csv",
           row.names = F)
 ```
 
@@ -365,6 +365,6 @@ combined_array_df <- combined_array_df %>%
 
 ```{r}
 write.csv(combined_array_df, 
-          "cleaned_data/combined_flower_array_data.csv", 
+          "cleaned_data/01_combined_flower_array_data.csv", 
           row.names = F)
 ```
