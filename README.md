@@ -2,7 +2,7 @@
 
 ## Project description
 
-This repository contains files and scripts to analyze them from an experiment on honey bee recruitment behavior conducted in the summer of 2022. The purpose of that experiment was to determine how the:
+This repository scripts to analyze data from an experiment on honey bee recruitment behavior conducted in the summer of 2022. The purpose of that experiment was to determine how the:
 
 * density (spacing) and
 * total number of flowers
