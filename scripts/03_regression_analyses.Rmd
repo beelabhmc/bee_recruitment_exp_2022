@@ -22,6 +22,8 @@ opts_knit$set(root.dir = normalizePath('../'))
 library("tidyverse")  # for wrangling data
 library("lme4")       # for glmer.nb function
 library("nlme")       # for lme function
+library("glmmTMB")    # for fitting generalized mixed models
+library("AICcmodavg") # for making delta AIC comparison table
 library("DHARMa")     # to assess generalized mixed models
 ```
 
@@ -30,35 +32,85 @@ library("DHARMa")     # to assess generalized mixed models
 
 ```{r}
 # This file has one row per dance
-dances_df <- read.csv("cleaned_data/02_all_dances.csv")
+dances_df <- read.csv("cleaned_data/02_all_dances.csv") %>%
+  mutate(ObsID = row_number())
 
 # This file has one row per uniquely-IDed bee
-bees_df <- read.csv("cleaned_data/02_per_bee_summary.csv")
+bees_df <- read.csv("cleaned_data/01_per_bee_summary.csv") %>%
+  mutate(ObsID = row_number())
 
 ```
 
 
-# Step : Dances per bee (per day) model
-
-* __Question__: Does it make sense to include trial as a fixed effect here? I did this because I wanted to be consistent with the model below looking at waggle runs per dance.
+# Step : Fitting a set of generalized mixed models
 
 ```{r}
-model_dances <- glmer.nb(Dances ~ Density + Flower_number + Trial + (1|Date),
+model_dance_olrs <- glmmTMB(Dances ~ Density + Flower_number +
+                          (1|Date) + (1|Trial) + (1|Bee) + (1|ObsID),
+                        family = "poisson", 
+                        data = bees_df)
+
+model_dance_nb1 <- glmmTMB(Dances ~ Density + Flower_number + 
+                          (1|Date) + (1|Trial) + (1|Bee), 
+                         family = "nbinom1", 
                          data = bees_df)
 
-summary(model_dances)
-```
+model_dance_nb2 <- glmmTMB(Dances ~ Density + Flower_number + 
+                          (1|Date) + (1|Trial) +  (1|Bee), 
+                         family="nbinom2", 
+                         data = bees_df)
 
-Testing model fit with DHARMa package:
+model_dance_zip <- glmmTMB(Dances ~ Density + Flower_number + 
+                          (1|Date) + (1|Trial) + (1|Bee),  
+                          zi = ~1,
+                          family="poisson", 
+                          data = bees_df)
+```
 
 ```{r}
-sim_model_dances <- simulateResiduals(model_dances, refit = T)
-testDispersion(sim_model_dances)
-testUniformity(sim_model_dances)
-testOutliers(sim_model_dances)
+summary(model_dance_olrs)
 ```
 
-* __Question__: I don't know how problematic this overdispersion is. Do you think we can trust this model?
+```{r}
+simulationOutput_olrs <- simulateResiduals(
+  fittedModel = model_dance_olrs, plot = FALSE)
+
+plot(simulationOutput_olrs)
+```
+
+
+```{r}
+summary(model_dance_nb1)
+```
+
+```{r}
+simulationOutput_nb1 <- simulateResiduals(
+  fittedModel = model_dance_nb1, plot = FALSE)
+
+plot(simulationOutput_nb1)
+```
+
+```{r}
+summary(model_dance_nb2)
+```
+
+```{r}
+simulationOutput_nb2 <- simulateResiduals(
+  fittedModel = model_dance_nb2, plot = FALSE)
+
+plot(simulationOutput_nb2)
+```
+
+```{r}
+summary(model_dance_zip)
+```
+
+```{r}
+simulationOutput_zip <- simulateResiduals(
+  fittedModel = model_dance_zip, plot = FALSE)
+
+plot(simulationOutput_zip)
+```
 
 
 # Step : Dance rate per bee (dances/hour) model
@@ -92,25 +144,71 @@ So that's clearly not normal.
 My next thought was to try some transformations, but none of the standard transformations I tried helped (log+1, sqrt, square).
 
 
-# Step : Waggle runs per dance model
-
-* __Question__: Excluding Trial does not appear to change the result, but this seems wrong as Trial was a very important factor in determining dances per bee. Unfortunately, adding Trial as a random effect (bee nested in date nested in colony) causes the model to not converge. Does it seem reasonable to include it as a fixed effect or should we exclude it entirely because it has no significant effect?
+# Step : Waggle runs/dance model comparison
 
 ```{r}
-model_waggle_runs <- glmer.nb(Total_runs ~ Density + Flower_number + Trial + (1|Bee/Date),
-                              data = dances_df)
+model_runs_olrs <- glmmTMB(Total_runs ~ Density + Flower_number +
+                          (1|Date) + (1|Trial) + (1|Bee) + (1|ObsID),
+                        family = "poisson", 
+                        data = dances_df)
 
-summary(model_waggle_runs)
+model_runs_nb1 <- glmmTMB(Total_runs ~ Density + Flower_number + 
+                          (1|Date) + (1|Trial) + (1|Bee), 
+                         family = "nbinom1", 
+                         data = dances_df)
+
+model_runs_nb2 <- glmmTMB(Total_runs ~ Density + Flower_number + 
+                          (1|Date) + (1|Trial) +  (1|Bee), 
+                         family="nbinom2", 
+                         data = dances_df)
+
+model_runs_zip <- glmmTMB(Total_runs ~ Density + Flower_number + 
+                          (1|Date) + (1|Trial) + (1|Bee),  
+                          zi = ~1,
+                          family="poisson", 
+                          data = dances_df)
 ```
-
-Testing model fit with DHARMa package:
 
 ```{r}
-sim_model_waggle_runs <- simulateResiduals(model_waggle_runs, refit = T)
-testDispersion(sim_model_waggle_runs)
-testUniformity(sim_model_waggle_runs)
-testOutliers(sim_model_waggle_runs)
+summary(model_runs_olrs)
 ```
 
-This seems reasonable to me. KS test non-significant, no significant over/underdispersion, and the qqplot looks good. 
+```{r}
+simulationOutput_runs_olrs <- simulateResiduals(
+  fittedModel = model_runs_olrs, plot = FALSE)
 
+plot(simulationOutput_runs_olrs)
+```
+
+```{r}
+summary(model_runs_nb1)
+```
+
+```{r}
+simulationOutput_runs_nb1 <- simulateResiduals(
+  fittedModel = model_runs_nb1, plot = FALSE)
+
+plot(simulationOutput_runs_nb1)
+```
+
+```{r}
+summary(model_runs_nb2)
+```
+
+```{r}
+simulationOutput_runs_nb2 <- simulateResiduals(
+  fittedModel = model_runs_nb2, plot = FALSE)
+
+plot(simulationOutput_runs_nb2)
+```
+
+```{r}
+summary(model_runs_zip)
+```
+
+```{r}
+simulationOutput_runs_zip <- simulateResiduals(
+  fittedModel = model_runs_zip, plot = FALSE)
+
+plot(simulationOutput_runs_zip)
+```
