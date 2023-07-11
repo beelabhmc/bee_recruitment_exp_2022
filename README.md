@@ -2,7 +2,7 @@
 
 ## Project description
 
-This repository contains files and scripts to analyze them from an experiment on honey bee recruitment behavior conducted in the summer of 2022. The purpose of that experiment was to determine how the:
+This repository scripts to analyze data from an experiment on honey bee recruitment behavior conducted in the summer of 2022. The purpose of that experiment was to determine how the:
 
 * density (spacing) and
 * total number of flowers
@@ -86,11 +86,13 @@ This folder contains all figures made using ggplot in scripts 04 and 05.
 
 ## Getting started
 
-If you clone this repository, all the necessary data will be in the data folder. You will need to install several packages before running the R notebook scripts:
+If you clone this repository, it will not include the data folder. You will need to download that from: TBA online repository
+
+You will need to install several packages before running the R notebook scripts:
 
 * DHARMa 0.4.6
 * tidyverse 2.0.0
 * nlme 3.1-160
 * lme4 1.1-31
 
-I recommend using the R notebooks in R Studio. If you run them in the order indicated by the file slugs ("01_" to "05_"), they will create the necessary files and folders.
+I recommend opening and running the R notebooks in R Studio. If you run them in the order indicated by the file prefixes ("01_" to "05_"), they will create the other necessary files and folders.
