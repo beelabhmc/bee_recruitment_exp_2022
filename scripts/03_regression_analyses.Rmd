@@ -23,7 +23,7 @@ library("tidyverse")  # for wrangling data
 library("lme4")       # for glmer.nb function
 library("nlme")       # for lme function
 library("glmmTMB")    # for fitting generalized mixed models
-library("AICcmodavg") # for making delta AIC comparison table
+library("bbmle") # for making delta AIC comparison table
 library("DHARMa")     # to assess generalized mixed models
 ```
 
@@ -36,7 +36,7 @@ dances_df <- read.csv("cleaned_data/02_all_dances.csv") %>%
   mutate(ObsID = row_number())
 
 # This file has one row per uniquely-IDed bee
-bees_df <- read.csv("cleaned_data/01_per_bee_summary.csv") %>%
+bees_df <- read.csv("cleaned_data/02_per_bee_summary.csv") %>%
   mutate(ObsID = row_number())
 
 ```
@@ -65,6 +65,13 @@ model_dance_zip <- glmmTMB(Dances ~ Density + Flower_number +
                           zi = ~1,
                           family="poisson", 
                           data = bees_df)
+```
+
+```{r}
+AICtab(model_dance_olrs,
+       model_dance_nb1,
+       model_dance_nb2,
+       model_dance_zip)
 ```
 
 ```{r}
@@ -161,12 +168,12 @@ model_runs_nb2 <- glmmTMB(Total_runs ~ Density + Flower_number +
                           (1|Date) + (1|Trial) +  (1|Bee), 
                          family="nbinom2", 
                          data = dances_df)
+```
 
-model_runs_zip <- glmmTMB(Total_runs ~ Density + Flower_number + 
-                          (1|Date) + (1|Trial) + (1|Bee),  
-                          zi = ~1,
-                          family="poisson", 
-                          data = dances_df)
+```{r}
+AICtab(model_runs_olrs,
+       model_runs_nb1,
+       model_runs_nb2)
 ```
 
 ```{r}

@@ -26,9 +26,9 @@ library(tidyverse)
 # Step : Read in hive and flower array csv files
 
 ```{r}
-hive_0615 <- read.csv("data/0615_VideoAnalysis.csv")
-hive_0616 <- read.csv("data/0616_VideoAnalysis.csv")
-hive_0617 <- read.csv("data/0617_VideoAnalysis.csv")
+hive_0615 <- read.csv("data/0615_VideoAnalysis2.csv")
+hive_0616 <- read.csv("data/0616_VideoAnalysis2.csv")
+hive_0617 <- read.csv("data/0617_VideoAnalysis2.csv")
 
 hive_0718 <- read.csv("data/0718_VideoAnalysis.csv", skip = 1)
 hive_0719 <- read.csv("data/0719_VideoAnalysis.csv", skip = 1)
@@ -94,7 +94,9 @@ select_hive_columns <- . %>%
          Bout_11,
          Bout_12,
          Bout_13,
-         Bout_14)
+         Bout_14) %>%
+  filter(!is.na(Bee) & Bee != "") # removes rows representing array visits where
+                                  # we didn't analyze the subsequent hive visit
 ```
 
 ```{r}
@@ -222,6 +224,10 @@ combined_hive_df %>%
   group_by(Date, Bee) %>%
   summarize()
 ```
+On 6-15-22:
+
+* _O-a may not have visited the feeder and she didn't dance
+
 On 7-18-22:
 
 * RB-a appears to enter the hive once but then wanders around and follows a few dances- she may not have visited any food source
