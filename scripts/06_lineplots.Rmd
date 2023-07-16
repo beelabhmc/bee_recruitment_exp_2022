@@ -1,0 +1,95 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Purpose
+
+This script creates line figures showing the effects of flower patch treatments on individual bees' dancing and the waggle runs that they performed per dance. The data are from experiments using arrays of artificial flowers conducted in the summer of 2022.
+
+
+# Set up working directory
+
+```{r, setup} 
+library(knitr) 
+opts_knit$set(root.dir = normalizePath('../'))
+```
+
+
+# Load libraries
+
+```{r}
+library("tidyverse")
+```
+
+
+# Step : Read in data files
+
+```{r}
+# This file has one row per dance
+dances_df <- read.csv("cleaned_data/02_all_dances.csv") %>%
+  mutate(Day = as.factor(Day))
+
+# This file has one row per uniquely-IDed bee
+bees_df <- read.csv("cleaned_data/02_per_bee_summary.csv") %>%
+  mutate(Day = as.factor(Day))
+
+```
+
+
+# Step : Create "figures" folder if needed
+
+```{r}
+if (!dir.exists("figures")){
+  dir.create("figures")
+}
+```
+
+# Step : Make lineplots showing changes in dances/bee across days
+
+```{r}
+bees_df %>%
+  filter(Trial == "Trial 1") %>%
+  ggplot(aes(x = Day, y = Dances, color = Bee, group = Bee)) +
+  geom_line() +
+  facet_wrap(~Scent) +
+  labs(y = "Dances per bee") +
+  theme_light()
+```
+
+```{r}
+bees_df %>%
+  filter(Trial == "Trial 2") %>%
+  ggplot(aes(x = Day, y = Dances, color = Bee, group = Bee)) +
+  geom_line() +
+  facet_wrap(~Scent) +
+  labs(y = "Dances per bee") +
+  theme_light()
+```
+
+
+# Step : Make lineplots showing changes in waggle runs/dance/bee across days
+
+```{r}
+dances_df %>%
+  filter(Trial == "Trial 1") %>%
+  group_by(Bee, Scent, Day) %>%
+  summarize(Mean_runs = mean(Total_runs)) %>%
+  ggplot(aes(x = Day, y = Mean_runs, color = Bee, group = Bee)) +
+  geom_line() +
+  facet_wrap(~Scent) +
+  labs(y = "Waggle runs/dance/bee") +
+  theme_light()
+```
+
+```{r}
+dances_df %>%
+  filter(Trial == "Trial 2") %>%
+  group_by(Bee, Scent, Day) %>%
+  summarize(Mean_runs = mean(Total_runs)) %>%
+  ggplot(aes(x = Day, y = Mean_runs, color = Bee, group = Bee)) +
+  geom_line() +
+  facet_wrap(~Scent) +
+  labs(y = "Waggle runs/dance/bee") +
+  theme_light()
+```

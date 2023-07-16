@@ -136,7 +136,7 @@ cumulative_array_df <- data.frame(Trial = character(),
                  Density = character(),
                  Flower_number = character(),
                  Minute = integer(),
-                 Cumul_bees = integer())
+                 Cumul_array_bees = integer())
 
 # Here are all of the options to loop through
 trials <- unique(dances_df$Trial)
@@ -168,7 +168,7 @@ for (trial_i in trials){
                                   Flower_number = rep(x = curr_flower_number, times = length(minutes)),
                                   Setup = rep(x = curr_setup, times = length(minutes)),
                                   Minute = minutes,
-                                  Cumul_bees = rep(x = 0, times = length(minutes)))
+                                  Cumul_array_bees = rep(x = 0, times = length(minutes)))
       for (row in 1:length(minutes)){
         # save the minute for the current row
         curr_minute <- row
@@ -178,13 +178,24 @@ for (trial_i in trials){
         # get a vector of all bees that were seen during/before that minute
         curr_bees_list <- unique(temp_df_row$Bee)
         # add the cumulative totals to the temporary data frame
-        temp_cumul_df$Cumul_bees[row] <- length(curr_bees_list)
+        temp_cumul_df$Cumul_array_bees[row] <- length(curr_bees_list)
       }
       # then add the temporary df to the df we initialized above
       cumulative_array_df <- rbind(cumulative_array_df, temp_cumul_df)
     }
   }
 }
+```
+
+
+# Step : Combine cumulative_df and cumulative_array_df so we can scale by number of bees that
+# have visited the array
+
+```{r}
+combined_df <- full_join(cumulative_df, cumulative_array_df) %>%
+  mutate(Scaled_dancing_bees = ifelse(Cumul_array_bees > 0, Cumul_bees / Cumul_array_bees, 0),
+         Scaled_dances = ifelse(Cumul_array_bees > 0, Cumul_dances / Cumul_array_bees, 0),
+         Scaled_waggle_runs = ifelse(Cumul_array_bees > 0, Cumul_waggle_runs / Cumul_array_bees, 0))
 ```
 
 
@@ -219,6 +230,26 @@ ggsave("figures/05_lineplot_cumulative_dancing_bees.jpg",
   
 ```
 
+Unique bees who danced scaled by the cumulative number of bees who had visited the feeder
+
+```{r}
+combined_df %>%
+  ggplot(aes(x = Minute, y = Scaled_dancing_bees, color = Setup, linetype = Day)) +
+  scale_linetype_manual(values = c("twodash", "solid", "dotted")) +
+  geom_line(linewidth = 1) +
+  labs(y = "Cumulative proportion of bees that visited the array that also danced") +
+  facet_grid(Trial~Treatment) +  # trials had very different totals
+  theme_light(base_size = 16)
+
+ggsave("figures/05_lineplot_scaled_cumulative_dancing_bees.jpg", 
+       device="jpeg",
+       width = 12,
+       height = 8,
+       units = "in",
+       dpi = 300)
+  
+```
+
 Dances performed
 
 ```{r}
@@ -232,6 +263,26 @@ cumulative_df %>%
 
 
 ggsave("figures/05_lineplot_cumulative_dances.jpg", 
+       device="jpeg",
+       width = 12,
+       height = 8,
+       units = "in",
+       dpi = 300)
+```
+
+Dances performed scaled by the cumulative number of bees that had visited the array
+
+```{r}
+combined_df %>%
+  ggplot(aes(x = Minute, y = Scaled_dances, color = Setup, linetype = Day)) +
+  scale_linetype_manual(values = c("twodash", "solid", "dotted")) +
+  geom_line(linewidth = 1) +
+  labs(y = "Cumulative dances per bee") +
+  facet_grid(Trial~Treatment, scales = "free_y") +  # trials had very different totals
+  theme_light(base_size = 16)
+
+
+ggsave("figures/05_lineplot_scaled_cumulative_dances.jpg", 
        device="jpeg",
        width = 12,
        height = 8,
@@ -260,11 +311,29 @@ ggsave("figures/05_lineplot_cumulative_waggle_runs.jpg",
 ```
 
 
+```{r}
+combined_df %>%
+  ggplot(aes(x = Minute, y = Scaled_waggle_runs, color = Setup, linetype = Day)) +
+  scale_linetype_manual(values = c("twodash", "solid", "dotted")) +
+  geom_line(linewidth = 1) +
+  labs(y = "Cumulative waggle runs per bee") +
+  facet_grid(Trial~Treatment, scales = "free_y") +  # trials had very different totals
+  theme_light(base_size = 16)
+  
+
+ggsave("figures/05_lineplot_scaled_cumulative_waggle_runs.jpg", 
+       device="jpeg",
+       width = 12,
+       height = 8,
+       units = "in",
+       dpi = 300)
+```
+
 Unique bees who visited flower array- this shows how many bees could possibly have decided to contribute to the number of dances and waggle runs.
 
 ```{r}
 cumulative_array_df %>%
-  ggplot(aes(x = Minute, y = Cumul_bees, color = Setup, linetype = Day)) +
+  ggplot(aes(x = Minute, y = Cumul_array_bees, color = Setup, linetype = Day)) +
   scale_linetype_manual(values = c("twodash", "solid", "dotted")) +
   geom_line(linewidth = 1) +
   labs(y = "Cumulative bees that visted flower array") +

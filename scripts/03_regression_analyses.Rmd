@@ -46,32 +46,32 @@ bees_df <- read.csv("cleaned_data/02_per_bee_summary.csv") %>%
 
 ```{r}
 # poisson with observation-level random effect
-model_dance_olrs <- glmmTMB(Dances ~ Density + Flower_number +
+model_dance_olrs <- glmmTMB(Dances ~ Density + Flower_number + Scent +
                           (1|Date) + (1|Trial) + (1|Bee) + (1|ObsID),
                         family = "poisson", 
                         data = bees_df)
 
 # negative binomial with linear parameterization
-model_dance_nb1 <- glmmTMB(Dances ~ Density + Flower_number + 
-                          (1|Date) + (1|Trial) + (1|Bee), 
+model_dance_nb1 <- glmmTMB(Dances ~ Density + Flower_number + Scent +
+                         (1|Date) + (1|Trial) + (1|Bee), 
                          family = "nbinom1", 
                          data = bees_df)
 
 # negative binomial with quadratic parameterization
-model_dance_nb2 <- glmmTMB(Dances ~ Density + Flower_number + 
+model_dance_nb2 <- glmmTMB(Dances ~ Density + Flower_number + Scent +
                           (1|Date) + (1|Trial) +  (1|Bee), 
                          family="nbinom2", 
                          data = bees_df)
 
 # zero-inflated model with constant zero probability
-model_dance_zip <- glmmTMB(Dances ~ Density + Flower_number + 
+model_dance_zip <- glmmTMB(Dances ~ Density + Flower_number + Scent +
                           (1|Date) + (1|Trial) + (1|Bee),  
                           zi = ~1,
                           family="poisson", 
                           data = bees_df)
 
 # zero-inflated model with zero probability dependent on same factors as number of dances
-model_dance_zip2 <- glmmTMB(Dances ~ Density + Flower_number + 
+model_dance_zip2 <- glmmTMB(Dances ~ Density + Flower_number + Scent +
                           (1|Date) + (1|Trial) + (1|Bee),  
                           zi = ~.,
                           family="poisson", 
@@ -176,17 +176,17 @@ My next thought was to try some transformations, but none of the standard transf
 # Step : Waggle runs/dance model comparison
 
 ```{r}
-model_runs_olrs <- glmmTMB(Total_runs ~ Density + Flower_number +
+model_runs_olrs <- glmmTMB(Total_runs ~ Density + Flower_number + Scent +
                           (1|Date) + (1|Trial) + (1|Bee) + (1|ObsID),
                         family = "poisson", 
                         data = dances_df)
 
-model_runs_nb1 <- glmmTMB(Total_runs ~ Density + Flower_number + 
+model_runs_nb1 <- glmmTMB(Total_runs ~ Density + Flower_number + Scent +
                           (1|Date) + (1|Trial) + (1|Bee), 
                          family = "nbinom1", 
                          data = dances_df)
 
-model_runs_nb2 <- glmmTMB(Total_runs ~ Density + Flower_number + 
+model_runs_nb2 <- glmmTMB(Total_runs ~ Density + Flower_number + Scent +
                           (1|Date) + (1|Trial) +  (1|Bee), 
                          family="nbinom2", 
                          data = dances_df)
@@ -231,13 +231,4 @@ simulationOutput_runs_nb2 <- simulateResiduals(
 plot(simulationOutput_runs_nb2)
 ```
 
-```{r}
-summary(model_runs_zip)
-```
 
-```{r}
-simulationOutput_runs_zip <- simulateResiduals(
-  fittedModel = model_runs_zip, plot = FALSE)
-
-plot(simulationOutput_runs_zip)
-```
