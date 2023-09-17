@@ -28,7 +28,7 @@ library("DHARMa")     # to assess generalized mixed models
 ```
 
 
-# Step : Read in data files
+# Read in data files
 
 ```{r}
 # This file has one row per dance
@@ -42,37 +42,63 @@ bees_df <- read.csv("cleaned_data/02_per_bee_summary.csv") %>%
 ```
 
 
-# Step : Fitting a set of generalized mixed models
+# Summary to check data files read in correctly
+
+```{r}
+dances_summary <- bees_df %>%
+  group_by(Trial, Date, Site) %>%
+  summarize(Bees = n_distinct(Bee), Dances = sum(Dances))
+
+dances_summary
+```
+
+```{r}
+waggle_runs_summary <- dances_df %>%
+  group_by(Trial, Date, Site) %>%
+  summarize(Dancing_bees = n_distinct(Bee), Mean_runs = mean(Total_runs), Sum_runs = sum(Total_runs))
+
+waggle_runs_summary
+```
+
+```{r}
+full_summary <- full_join(dances_summary, waggle_runs_summary) %>%
+  mutate(Prop_danced = Dancing_bees / Bees)
+
+full_summary
+```
+
+
+# Fitting a set of generalized mixed models
 
 ```{r}
 # poisson with observation-level random effect
-model_dance_olrs <- glmmTMB(Dances ~ Density + Flower_number + Scent +
-                          (1|Date) + (1|Trial) + (1|Bee) + (1|ObsID),
+model_dance_olrs <- glmmTMB(Dances ~ Density + Flower_number +
+                          (1|Scent) + (1|Date) + (1|Trial) + (1|Bee) + (1|ObsID),
                         family = "poisson", 
                         data = bees_df)
 
 # negative binomial with linear parameterization
-model_dance_nb1 <- glmmTMB(Dances ~ Density + Flower_number + Scent +
-                         (1|Date) + (1|Trial) + (1|Bee), 
+model_dance_nb1 <- glmmTMB(Dances ~ Density + Flower_number + 
+                         (1|Scent) + (1|Date) + (1|Trial) + (1|Bee), 
                          family = "nbinom1", 
                          data = bees_df)
 
 # negative binomial with quadratic parameterization
-model_dance_nb2 <- glmmTMB(Dances ~ Density + Flower_number + Scent +
-                          (1|Date) + (1|Trial) +  (1|Bee), 
+model_dance_nb2 <- glmmTMB(Dances ~ Density + Flower_number + 
+                          (1|Scent) + (1|Date) + (1|Trial) +  (1|Bee), 
                          family="nbinom2", 
                          data = bees_df)
 
 # zero-inflated model with constant zero probability
-model_dance_zip <- glmmTMB(Dances ~ Density + Flower_number + Scent +
-                          (1|Date) + (1|Trial) + (1|Bee),  
+model_dance_zip <- glmmTMB(Dances ~ Density + Flower_number +
+                          (1|Scent) + (1|Date) + (1|Trial) + (1|Bee),  
                           zi = ~1,
                           family="poisson", 
                           data = bees_df)
 
 # zero-inflated model with zero probability dependent on same factors as number of dances
-model_dance_zip2 <- glmmTMB(Dances ~ Density + Flower_number + Scent +
-                          (1|Date) + (1|Trial) + (1|Bee),  
+model_dance_zip2 <- glmmTMB(Dances ~ Density + Flower_number + 
+                          (1|Scent) + (1|Date) + (1|Trial) + (1|Bee),  
                           zi = ~.,
                           family="poisson", 
                           data = bees_df)
@@ -142,52 +168,22 @@ simulationOutput_zip2 <- simulateResiduals(
 plot(simulationOutput_zip2)
 ```
 
-# Step : Dance rate per bee (dances/hour) model
 
-* __Question__: If we were to use dance rate rather than dances per bee, then we can't use a negative binomial generalized model because we no longer have count data. I tried just a normal mixed model (see below), but you can see below that the residuals are not normally distributed. Maybe this is moot point if we are going with dances per bee, but what would you recommend?
-
-```{r}
-model_dance_rate <- lme(Dance_rate ~ Density + Flower_number + Trial,
-                        random = ~1|Date,
-                        data = bees_df)
-
-summary(model_dance_rate)
-```
-
-Testing model fit with plot:
+# Waggle runs/dance model comparison
 
 ```{r}
-qqnorm(resid(model_dance_rate))
-qqline(resid(model_dance_rate))
-```
-This seems worrying, but I wanted to clearer answer about whether the residuals were normally-distributed. Unfortunately, the DHARMa package does not seem to work for lme models.
-
-I wanted to use a Kolmogorov-Smirnov test to see if the residuals are normally distributed so that it was consistent with the DHARMa output, but it can't handle ties so I used a Shapiro-Wilk test instead:
-
-```{r}
-shapiro.test(resid(model_dance_rate))
-```
-
-So that's clearly not normal.
-
-My next thought was to try some transformations, but none of the standard transformations I tried helped (log+1, sqrt, square).
-
-
-# Step : Waggle runs/dance model comparison
-
-```{r}
-model_runs_olrs <- glmmTMB(Total_runs ~ Density + Flower_number + Scent +
-                          (1|Date) + (1|Trial) + (1|Bee) + (1|ObsID),
+model_runs_olrs <- glmmTMB(Total_runs ~ Density + Flower_number + 
+                          (1|Scent) + (1|Date) + (1|Trial) + (1|Bee) + (1|ObsID),
                         family = "poisson", 
                         data = dances_df)
 
-model_runs_nb1 <- glmmTMB(Total_runs ~ Density + Flower_number + Scent +
-                          (1|Date) + (1|Trial) + (1|Bee), 
+model_runs_nb1 <- glmmTMB(Total_runs ~ Density + Flower_number + 
+                          (1|Scent) + (1|Date) + (1|Trial) + (1|Bee), 
                          family = "nbinom1", 
                          data = dances_df)
 
-model_runs_nb2 <- glmmTMB(Total_runs ~ Density + Flower_number + Scent +
-                          (1|Date) + (1|Trial) +  (1|Bee), 
+model_runs_nb2 <- glmmTMB(Total_runs ~ Density + Flower_number + 
+                          (1|Scent) + (1|Date) + (1|Trial) +  (1|Bee), 
                          family="nbinom2", 
                          data = dances_df)
 ```
@@ -230,5 +226,3 @@ simulationOutput_runs_nb2 <- simulateResiduals(
 
 plot(simulationOutput_runs_nb2)
 ```
-
-

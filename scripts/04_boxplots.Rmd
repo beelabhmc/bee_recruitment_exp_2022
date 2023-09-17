@@ -23,7 +23,7 @@ library("tidyverse")
 ```
 
 
-# Step : Read in data files
+# Read in data files
 
 ```{r}
 # This file has one row per dance
@@ -37,7 +37,7 @@ bees_df <- read.csv("cleaned_data/02_per_bee_summary.csv") %>%
 ```
 
 
-# Step : Create "figures" folder if needed
+# Create "figures" folder if needed
 
 ```{r}
 if (!dir.exists("figures")){
@@ -46,58 +46,42 @@ if (!dir.exists("figures")){
 ```
 
 
-# Step : Make boxplot figures
+# Make boxplot figures
 
-Dances per bee
+Figure 2A: Dances per bee
 
 ```{r}
 bees_df %>%
   ggplot(aes(x = Day, y = Dances, fill = Setup)) +
   geom_boxplot() +
+  scale_fill_manual(values = c("chartreuse4", "chartreuse3", "chartreuse")) +
   labs(y = "Dances performed per bee") +
   facet_grid(Trial~Treatment, scales = "free_y") +
   theme_classic(base_size = 16)
 
 ggsave("figures/04_boxplot_dances_per_bee.jpg", 
        device="jpeg",
-       width = 12,
-       height = 8,
+       width = 9.5,
+       height = 7,
        units = "in",
        dpi = 300)
 ```
 
-Dances per bee per hour after she was first seen visiting an artificial flower array
-
-```{r}
-bees_df %>%
-  ggplot(aes(x = Day, y = Dance_rate, fill = Setup)) +
-  geom_boxplot() +
-  labs(y = "Dances performed per bee per hour") +
-  facet_grid(Trial~Treatment, scales = "free_y") +
-  theme_classic(base_size = 16)
-
-ggsave("figures/04_boxplot_dance_rate_per_bee.jpg", 
-       device="jpeg",
-       width = 12,
-       height = 8,
-       units = "in",
-       dpi = 300)
-```
-
-Waggle runs per dance
+Figure 2B: Waggle runs per dance
 
 ```{r}
 dances_df %>%
   ggplot(aes(x = Day, y = Total_runs, fill = Setup)) +
   geom_boxplot() +
+  scale_fill_manual(values = c("chartreuse4", "chartreuse3", "chartreuse")) +
   labs(y = "Waggle runs per dance") +
   facet_grid(Trial~Treatment, scales = "free_y")+
   theme_classic(base_size = 16)
 
 ggsave("figures/04_boxplot_waggle_runs_per_dance.jpg", 
        device="jpeg",
-       width = 12,
-       height = 8,
+       width = 9.5,
+       height = 7,
        units = "in",
        dpi = 300)
 ```
