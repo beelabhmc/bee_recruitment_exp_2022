@@ -23,7 +23,9 @@ library(tidyverse)
 ```
 
 
-# Step : Read in flower array files
+# Read in flower array files
+
+In both trials, the south array had 50 ul of clove bud essential oil added and the northeast array had 50 ul of peppermint oil essential oil added (hence the filenames).
 
 ```{r}
 array_clove_0718 <- read.csv("data/0718_Clove_FeederVisits.csv", skip = 2)
@@ -73,7 +75,9 @@ names(array_dfs) <- c("array_clove_0718",
 ```
 
 
-# Step : Select only valid, double-marked bee columns
+# Select only valid, double-marked bee columns
+
+Some columns in these data files counted unmarked bees or single-marked bees. Unfortunately, multiple bees had the same single mark so we could not analyze their behavior over time.
 
 Function to select columns:
 
@@ -84,7 +88,8 @@ select_valid_bee_columns <- function(df){
     select(!starts_with("Time")) %>%  # to keep hours:minutes into video
     select(!contains("Recruits")) %>%
     select(!contains("Notes")) %>%
-    select(!ends_with("_"))  # to remove single-marked bees
+    select(!ends_with("_")) %>%  # to remove single-marked bees
+    select(!matches("^X$")) # to remove any extra blank columns
   
   return(df)
 }
@@ -100,9 +105,9 @@ for (i in 1:length(array_dfs)){
 ```
 
 
-# Step : Convert any text in bee observation columns to 1s
+# Convert any text in bee observation columns to 1s
 
-Some columns contain notes rather than 1s because I was making an educated guess about the true ID of the bee (we said an impossible ID in the tape). I think it is reasonable to assume that these guesses are mostly accurate.
+Some columns contain notes rather than 1s because I was making an educated guess about the true ID of the bee (we said an impossible ID in the recording). I think it is reasonable to assume that these guesses are accurate.
 
 ```{r}
 convert_text_to_ones <- function(df){
@@ -110,15 +115,21 @@ convert_text_to_ones <- function(df){
   df_colnames <- colnames(df)
   
   for (i in 2:length(df_colnames)){
-  
+      
+      # if the whole column contained only 1s and blanks, 
+      # then it will have been read it in as numeric 
+      # so we can skip that column
       if (is_character(df[, i])){
     
         for (j in 1:length(df[, i])){
         
+          # if we didn't enter anything, 
+          # then that bee was not IDed at the array in that minute
           if (df[j, i] == ""){
           
             df[j, i] <- NA
         
+            # if we did enter something ("1" or text), then she was IDed
           } else {
           
             df[j, i] <- "1"  
@@ -126,6 +137,8 @@ convert_text_to_ones <- function(df){
           }
       }
       
+      # And once we correct the blanks to NA and text to 1s, 
+      # we need to convert the whole column to integer
       df[ , i] <- as.integer(df[ , i])
     
       }
@@ -145,7 +158,7 @@ for (i in 1:length(array_dfs)){
 ```
 
 
-# Step : Convert flower array data frames so rows represent each bee sighting
+# Convert flower array data frames so rows represent each bee sighting
 
 Once we convert all of the data frames to a long format, we can combine them because they will have the same columns.
 
@@ -154,7 +167,7 @@ convert_to_long_format <- . %>%
   pivot_longer(cols = !Vid_time_interval,
                names_to = "Bee",
                values_to = "Observed") %>%
-  filter(Observed == 1)
+  filter(Observed == 1)  # we only need the times they were observed
 ```
 
 Apply this to data frames
@@ -167,53 +180,20 @@ for (i in 1:length(array_dfs)){
 ```
 
 
-# Step : Add date, colony, scent, site, density, and flower number columns and combine all data frames into one
+# Add date, colony, scent, site, density, and flower number columns and combine all data frames into one
 
-These variables are necessary for analyzing the data.
+These variables are necessary for analyzing the data later.
 
 ```{r}
-array_clove_0718 <- array_clove_0718 %>%
-  mutate(Date = "7/18/22") %>%
-  mutate(Colony = "7B") %>%
-  mutate(Scent = "Clove") %>%
-  mutate(Site = "South") %>%
-  mutate(Density = "High") %>%
-  mutate(Flower_number = "Low")
-array_peppermint_0718 <- array_peppermint_0718 %>%
-  mutate(Date = "7/18/22") %>%
-  mutate(Colony = "7B") %>%
-  mutate(Scent = "Peppermint") %>%
-  mutate(Site = "Northeast") %>%
-  mutate(Density = "High") %>%
-  mutate(Flower_number = "Low")
-array_clove_0719 <- array_clove_0719 %>%
-  mutate(Date = "7/19/22") %>%
-  mutate(Colony = "7B") %>%
-  mutate(Scent = "Clove") %>%
-  mutate(Site = "South") %>%
-  mutate(Density = "High") %>%
-  mutate(Flower_number = "Low")
-array_peppermint_0719 <- array_peppermint_0719 %>%
-  mutate(Date = "7/19/22") %>%
-  mutate(Colony = "7B") %>%
-  mutate(Scent = "Peppermint") %>%
-  mutate(Site = "Northeast") %>%
-  mutate(Density = "High") %>%
-  mutate(Flower_number = "High")
-array_clove_0720 <- array_clove_0720 %>%
-  mutate(Date = "7/20/22") %>%
-  mutate(Colony = "7B") %>%
-  mutate(Scent = "Clove") %>%
-  mutate(Site = "South") %>%
-  mutate(Density = "High") %>%
-  mutate(Flower_number = "Low")
-array_peppermint_0720 <- array_peppermint_0720 %>%
-  mutate(Date = "7/20/22") %>%
-  mutate(Colony = "7B") %>%
-  mutate(Scent = "Peppermint") %>%
-  mutate(Site = "Northeast") %>%
-  mutate(Density = "Low") %>%
-  mutate(Flower_number = "Low")
+# Trial 1:
+  # South array
+    # Clove scent
+    # 7/18-> High density (full trays), low flower number (67)
+    # 7/19-> Low density (1/9th full trays), low flower number (67)
+    # 7/20-> High density (full trays), high flower number (603)
+  # Northeast array
+    # Peppermint scent
+    # 7/18 to 7/20-> High density (full trays), low flower number (67) 
 array_clove_0615 <- array_clove_0615 %>%
   mutate(Date = "6/15/22") %>%
   mutate(Colony = "C") %>%
@@ -257,6 +237,58 @@ array_peppermint_0617 <- array_peppermint_0617 %>%
   mutate(Density = "High") %>%
   mutate(Flower_number = "Low")
 
+# Trial 2:
+  # South array
+    # Clove scent
+    # 7/18 to 7/20-> High density (full trays), low flower number (67)  
+  # Northeast array
+    # Peppermint scent
+    # 7/18-> High density (full trays), low flower number (67)
+    # 7/19-> High density (full trays), high flower number (603)
+    # 7/20-> Low density (1/9th full trays), low flower number (67)
+array_clove_0718 <- array_clove_0718 %>%
+  mutate(Date = "7/18/22") %>%
+  mutate(Colony = "7B") %>%
+  mutate(Scent = "Clove") %>%
+  mutate(Site = "South") %>%
+  mutate(Density = "High") %>%
+  mutate(Flower_number = "Low")
+array_peppermint_0718 <- array_peppermint_0718 %>%
+  mutate(Date = "7/18/22") %>%
+  mutate(Colony = "7B") %>%
+  mutate(Scent = "Peppermint") %>%
+  mutate(Site = "Northeast") %>%
+  mutate(Density = "High") %>%
+  mutate(Flower_number = "Low")
+array_clove_0719 <- array_clove_0719 %>%
+  mutate(Date = "7/19/22") %>%
+  mutate(Colony = "7B") %>%
+  mutate(Scent = "Clove") %>%
+  mutate(Site = "South") %>%
+  mutate(Density = "High") %>%
+  mutate(Flower_number = "Low")
+array_peppermint_0719 <- array_peppermint_0719 %>%
+  mutate(Date = "7/19/22") %>%
+  mutate(Colony = "7B") %>%
+  mutate(Scent = "Peppermint") %>%
+  mutate(Site = "Northeast") %>%
+  mutate(Density = "High") %>%
+  mutate(Flower_number = "High")
+array_clove_0720 <- array_clove_0720 %>%
+  mutate(Date = "7/20/22") %>%
+  mutate(Colony = "7B") %>%
+  mutate(Scent = "Clove") %>%
+  mutate(Site = "South") %>%
+  mutate(Density = "High") %>%
+  mutate(Flower_number = "Low")
+array_peppermint_0720 <- array_peppermint_0720 %>%
+  mutate(Date = "7/20/22") %>%
+  mutate(Colony = "7B") %>%
+  mutate(Scent = "Peppermint") %>%
+  mutate(Site = "Northeast") %>%
+  mutate(Density = "Low") %>%
+  mutate(Flower_number = "Low")
+
 combined_array_df <- rbind(array_clove_0615, array_peppermint_0615) %>%
   rbind(array_clove_0616) %>%
   rbind(array_peppermint_0616) %>%
@@ -268,10 +300,13 @@ combined_array_df <- rbind(array_clove_0615, array_peppermint_0615) %>%
   rbind(array_peppermint_0719) %>%
   rbind(array_clove_0720) %>%
   rbind(array_peppermint_0720)
+
 ```
 
 
-# Step : Add colony to Bee ID and remove WW.a_C (she was from a different colony)
+# Add colony to Bee ID and remove WW.a_C (she was from a different colony)
+
+Because some color combinations were used in both trials, we need to make all bee IDs unique by adding the colony to the ID.
 
 ```{r}
 combined_array_df <- combined_array_df %>%
@@ -280,9 +315,9 @@ combined_array_df <- combined_array_df %>%
 ```
 
 
-# Step : Modify data frame to add figure-relevant info
+# Modify data frame to add figure-relevant info
 
-Adding day and constant/changing so they can be used in the figures:
+Adding day and constant/changing variables so they can be used in the figures:
 
 ```{r}
 combined_array_df <- combined_array_df %>%
@@ -303,9 +338,9 @@ combined_array_df <- combined_array_df %>%
 ```
 
 
-# Step : Fix Bee IDs that start with X
+# Fix Bee IDs that start with X
 
-Some uniquely-marked bees in Trial one only had one mark on the abdomen, and we used ID such as "_B" to refer to them. Unfortunately, R automatically adds an X to the beginning of those column names so after we pivot to a long format we need to fix those IDs so that they will match the hive data.
+Some uniquely-marked bees in Trial one only had one mark on the abdomen, and we used IDs such as "_B" to refer to them. Unfortunately, R automatically adds an X to the beginning of those column names so after we pivot to a long format we need to fix those IDs so that they will match the hive data.
 
 ```{r}
 combined_array_df <- combined_array_df %>%
@@ -315,7 +350,9 @@ combined_array_df <- combined_array_df %>%
 ```
 
 
-# Step : Create "cleaned_data" folder if needed
+# Create "cleaned_data" folder if needed
+
+For saving processed data files.
 
 ```{r}
 if (!dir.exists("cleaned_data")){
@@ -324,9 +361,9 @@ if (!dir.exists("cleaned_data")){
 ```
 
 
-# Step : Add time into trial and write out full data frame
+# Add time into trial and write out full data frame
 
-We need to be able to compare the time of the first observed visit to the flower array to the first observed trip back to the hive. At first I thought using the datetime class in lubridate would help, but it really seems simpler to just work with minutes into the trial (up to 2 hours in Trial 1 and up to 1 hour in Trial 2).
+We need to be able to compare the time of the first observed visit to the flower array to the first observed trip back to the hive. At first I thought using the datetime class in lubridate would help, but it really seems simpler to just work with minutes into the trial (up to 120 minutes in Trial 1 and up to 60 minutes in Trial 2).
 
 ```{r}
 combined_array_df <- combined_array_df %>%
@@ -347,7 +384,7 @@ write.csv(combined_array_df,
 ```
 
 
-# Step : Create new data frame with first sighting of each bee and length of time bee could have visited flower array
+# Create new data frame with first sighting of each bee and length of time bee could have visited flower array
 
 To compare with the hive data, what we really need is a summary with one row for each bee-day combination.
 
@@ -356,12 +393,12 @@ combined_array_df <- combined_array_df %>%
   group_by(Colony, Trial, Date, Day, Scent, Treatment, Setup, Site, Density, Flower_number, Bee) %>%
   summarize(Array_time = min(Array_time)) %>%
   # then we can add the amount of time between when we first saw them and the end of the trial
-  # which is important later for getting the dance rate
+  # which is useful later if we want to calculate the dance rate
   mutate(Duration = ifelse(Colony == "7B", 60 - Array_time, 120 - Array_time))
 ```
 
 
-# Step : Write out combined data frame to csv file
+# Write out combined data frame to csv file
 
 ```{r}
 write.csv(combined_array_df, 
