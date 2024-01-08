@@ -25,6 +25,7 @@ library("nlme")       # for lme function
 library("glmmTMB")    # for fitting generalized mixed models
 library("bbmle") # for making delta AIC comparison table
 library("DHARMa")     # to assess generalized mixed models
+library("sjPlot")     # to get table of incidence rate ratios
 ```
 
 
@@ -33,11 +34,19 @@ library("DHARMa")     # to assess generalized mixed models
 ```{r}
 # This file has one row per dance
 dances_df <- read.csv("cleaned_data/02_all_dances.csv") %>%
-  mutate(ObsID = row_number())
+  mutate(ObsID = row_number()) %>%
+  # We'll make sure that results indicate increases with higher density and
+  # number of flowers so that they are easier to interpret
+  mutate(Density = factor(Density, levels = c("Low", "High"))) %>%
+  mutate(Flower_number = factor(Flower_number, levels = c("Low", "High")))
 
 # This file has one row per uniquely-IDed bee
 bees_df <- read.csv("cleaned_data/02_per_bee_summary.csv") %>%
-  mutate(ObsID = row_number())
+  mutate(ObsID = row_number()) %>%
+  # Again, we'll make sure that results indicate increases with higher density and
+  # number of flowers
+  mutate(Density = factor(Density, levels = c("Low", "High"))) %>%
+  mutate(Flower_number = factor(Flower_number, levels = c("Low", "High")))
 
 ```
 
@@ -135,6 +144,17 @@ simulationOutput_nb1 <- simulateResiduals(
 plot(simulationOutput_nb1)
 ```
 
+## Now we can get a table of the incidence rate ratios
+
+I believe that in this case we can interpret the incidence rate ratio as the relative probably (comparing 2 treatments) that a bee visiting the feeder will decide to perform a waggle dance within the observation period.
+
+
+```{r}
+sjPlot::tab_model(model_dance_nb1)
+```
+
+
+
 ```{r}
 summary(model_dance_nb2)
 ```
@@ -225,4 +245,12 @@ simulationOutput_runs_nb2 <- simulateResiduals(
   fittedModel = model_runs_nb2, plot = FALSE)
 
 plot(simulationOutput_runs_nb2)
+```
+
+## Now we can get a table of the incidence rate ratios
+
+I believe that in this case we can interpret the incidence rate ratio as the relative probably (comparing 2 treatments) that, once a bee has finished a waggle run, she will decide to perform another waggle run within the same hive visit.
+
+```{r}
+sjPlot::tab_model(model_runs_nb2)
 ```

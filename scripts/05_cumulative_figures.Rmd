@@ -197,8 +197,8 @@ combined_df <- full_join(cumulative_df, cumulative_array_df) %>%
   mutate(Scaled_dancing_bees = ifelse(Cumul_array_bees > 0, Cumul_bees / Cumul_array_bees, 0),
          # scale number of dances by number of bees that visited feeder
          Scaled_dances = ifelse(Cumul_array_bees > 0, Cumul_dances / Cumul_array_bees, 0),
-         # scale number of waggle runs by number of bees that danced
-         Scaled_waggle_runs = ifelse(Cumul_array_bees > 0, Cumul_waggle_runs / Cumul_bees, 0))
+         # scale number of waggle runs by number of bees that visited feeder
+         Scaled_waggle_runs = ifelse(Cumul_array_bees > 0, Cumul_waggle_runs / Cumul_array_bees, 0))
 ```
 
 
@@ -326,7 +326,7 @@ combined_df %>%
   scale_linetype_manual(values = c("twodash", "solid", "dotted")) +
   scale_color_manual(values = c("chartreuse4", "chartreuse3", "chartreuse")) +
   geom_line(linewidth = 1) +
-  labs(y = "Cumulative waggle runs per dancing bee") +
+  labs(y = "Cumulative waggle runs per bee that visited array") +
   facet_grid(Trial~Treatment, scales = "free_y") +  # trials had very different totals
   theme_light(base_size = 18)
   

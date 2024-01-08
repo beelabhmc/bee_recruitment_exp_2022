@@ -28,14 +28,14 @@ library(tidyverse)
 _Note:_ The "_VideoAnalysis2.csv" files are files from the first Trial in which we reanalyzed the hive videos, and this time we used the array visit information to determine when we should expect bees to return to the hive to better capture all dances.
 
 ```{r}
-hive_0615 <- read.csv("data/0615_VideoAnalysis2.csv")
-hive_0616 <- read.csv("data/0616_VideoAnalysis2.csv")
-hive_0617 <- read.csv("data/0617_VideoAnalysis2.csv")
+hive_0615 <- read.csv("data/0615_VideoAnalysis_2.csv")
+hive_0616 <- read.csv("data/0616_VideoAnalysis_2.csv")
+hive_0617 <- read.csv("data/0617_VideoAnalysis_2.csv")
 
 hive_0718 <- read.csv("data/0718_VideoAnalysis.csv", skip = 1)
 hive_0719 <- read.csv("data/0719_VideoAnalysis.csv", skip = 1)
 hive_0720 <- read.csv("data/0720_VideoAnalysis.csv", skip = 1) %>%
-  filter(Bee != "")  # for some reason there were many blank lines
+  filter(Bee != "")  # gets rid of extra blank lines
 
 # Output from 01_clean_array_data.Rmd
 array_df <- read.csv("cleaned_data/01_combined_flower_array_data.csv")
@@ -82,7 +82,6 @@ select_hive_columns <- . %>%
          Bee, 
          Entrance_minute,
          Entrance_second,
-         Danced,
          Bout_1,
          Bout_2,
          Bout_3,
@@ -96,9 +95,7 @@ select_hive_columns <- . %>%
          Bout_11,
          Bout_12,
          Bout_13,
-         Bout_14) %>%
-  filter(!is.na(Bee) & Bee != "") # removes rows representing array visits where
-                                  # we didn't observe a subsequent dance
+         Bout_14)
 ```
 
 ```{r}
@@ -179,6 +176,7 @@ combined_hive_df <- combined_hive_df %>%
                           Bout_14)
                           ),
                           na.rm = T)) %>%
+  mutate(Danced = ifelse(Total_runs > 0, 1, 0)) %>%
   # and now we don't need all those Bout columns
   select(!starts_with("Bout"))
 ```
@@ -214,7 +212,6 @@ A full join allows us to assign information about the array each bee was visitin
 
 ```{r}
 combined_hive_df <- combined_hive_df %>%
-  filter(!is.na(Danced)) %>%  # to get rid of visits we decided were invalid
   full_join(array_df)
 ```
 
@@ -301,12 +298,10 @@ combined_hive_df %>%
 hive_summary <- combined_hive_df %>%
   group_by(Colony, Trial, Date, Day, Scent, Treatment, Setup, Site, Density, Flower_number, Bee) %>%
   summarize(Dances = sum(Danced, na.rm = T), 
-            Dance_rate = ifelse(sum(Danced, na.rm = T) > 0 & mean(Duration) < 0, 1, sum(Danced, na.rm = T) / mean(Duration/60)),
             Waggle_runs = sum(Total_runs, na.rm = T)) %>%
   # if the bee was added because she appears in the array records but not the hive records
   # we need to make the following columns 0 for later analyses
   mutate(Dances = ifelse(is.na(Dances), 0, Dances)) %>%
-  mutate(Dance_rate = ifelse(is.na(Dance_rate), 0, Dance_rate)) %>%
   mutate(Waggle_runs = ifelse(is.na(Waggle_runs), 0, Waggle_runs))
 ```
 
