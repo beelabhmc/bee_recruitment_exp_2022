@@ -20,6 +20,7 @@ opts_knit$set(root.dir = normalizePath('../'))
 
 ```{r}
 library("tidyverse")
+library("RColorBrewer")    # for colorblind-friendly color palettes
 ```
 
 
@@ -54,7 +55,7 @@ Figure 2A: Dances per bee
 bees_df %>%
   ggplot(aes(x = Day, y = Dances, fill = Setup)) +
   geom_boxplot() +
-  scale_fill_manual(values = c("chartreuse4", "chartreuse3", "chartreuse")) +
+  scale_fill_brewer(palette = "Paired") +
   labs(y = "Dances performed per bee") +
   facet_grid(Trial~Treatment, scales = "free_y") +
   theme_classic(base_size = 16)
@@ -73,7 +74,7 @@ Figure 2B: Waggle runs per dance
 dances_df %>%
   ggplot(aes(x = Day, y = Total_runs, fill = Setup)) +
   geom_boxplot() +
-  scale_fill_manual(values = c("chartreuse4", "chartreuse3", "chartreuse")) +
+  scale_fill_brewer(palette = "Paired") +
   labs(y = "Waggle runs per dance") +
   facet_grid(Trial~Treatment, scales = "free_y")+
   theme_classic(base_size = 16)

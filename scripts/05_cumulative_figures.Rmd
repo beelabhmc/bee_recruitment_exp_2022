@@ -20,6 +20,7 @@ opts_knit$set(root.dir = normalizePath('../'))
 
 ```{r}
 library("tidyverse")
+library("RColorBrewer")    # for colorblind-friendly color palettes
 ```
 
 
@@ -219,7 +220,7 @@ Unique bees who danced
 cumulative_df %>%
   ggplot(aes(x = Minute, y = Cumul_bees, color = Setup, linetype = Day)) +
   scale_linetype_manual(values = c("twodash", "solid", "dotted")) +
-  scale_color_manual(values = c("chartreuse4", "chartreuse3", "chartreuse")) +
+  scale_color_brewer(palette = "Paired") +
   geom_line(linewidth = 1) +
   labs(y = "Cumulative bees that danced") +
   facet_grid(Trial~Treatment, scales = "free_y") +  # trials had very different totals
@@ -240,7 +241,7 @@ Figure S2: Unique bees who danced scaled by the cumulative number of bees who ha
 combined_df %>%
   ggplot(aes(x = Minute, y = Scaled_dancing_bees, color = Setup, linetype = Day)) +
   scale_linetype_manual(values = c("twodash", "solid", "dotted")) +
-  scale_color_manual(values = c("chartreuse4", "chartreuse3", "chartreuse")) +
+  scale_color_brewer(palette = "Paired") +
   geom_line(linewidth = 1) +
   labs(y = "Cumulative proportion of bees that visited the array that also danced") +
   facet_grid(Trial~Treatment) +  # trials had very different totals
@@ -261,7 +262,7 @@ Dances performed
 cumulative_df %>%
   ggplot(aes(x = Minute, y = Cumul_dances, color = Setup, linetype = Day)) +
   scale_linetype_manual(values = c("twodash", "solid", "dotted")) +
-  scale_color_manual(values = c("chartreuse4", "chartreuse3", "chartreuse")) +
+  scale_color_brewer(palette = "Paired") +
   geom_line(linewidth = 1) +
   labs(y = "Cumulative dances") +
   facet_grid(Trial~Treatment, scales = "free_y") +  # trials had very different totals
@@ -282,7 +283,7 @@ Figure 3A: Dances performed scaled by the cumulative number of bees that had vis
 combined_df %>%
   ggplot(aes(x = Minute, y = Scaled_dances, color = Setup, linetype = Day)) +
   scale_linetype_manual(values = c("twodash", "solid", "dotted")) +
-  scale_color_manual(values = c("chartreuse4", "chartreuse3", "chartreuse")) +
+  scale_color_brewer(palette = "Paired") +
   geom_line(linewidth = 1) +
   labs(y = "Cumulative dances per bee that visited array") +
   facet_grid(Trial~Treatment, scales = "free_y") +  # trials had very different totals
@@ -303,7 +304,7 @@ Waggle runs performed
 cumulative_df %>%
   ggplot(aes(x = Minute, y = Cumul_waggle_runs, color = Setup, linetype = Day)) +
   scale_linetype_manual(values = c("twodash", "solid", "dotted")) +
-  scale_color_manual(values = c("chartreuse4", "chartreuse3", "chartreuse")) +
+  scale_color_brewer(palette = "Paired") +
   geom_line(linewidth = 1) +
   labs(y = "Cumulative waggle runs") +
   facet_grid(Trial~Treatment, scales = "free_y") +  # trials had very different totals
@@ -324,7 +325,7 @@ Figure 3B: Waggle runs performed scaled by the cumulative number of bees that ha
 combined_df %>%
   ggplot(aes(x = Minute, y = Scaled_waggle_runs, color = Setup, linetype = Day)) +
   scale_linetype_manual(values = c("twodash", "solid", "dotted")) +
-  scale_color_manual(values = c("chartreuse4", "chartreuse3", "chartreuse")) +
+  scale_color_brewer(palette = "Paired") +
   geom_line(linewidth = 1) +
   labs(y = "Cumulative waggle runs per bee that visited array") +
   facet_grid(Trial~Treatment, scales = "free_y") +  # trials had very different totals
@@ -347,7 +348,7 @@ This shows how many bees could possibly have decided to contribute to the number
 cumulative_array_df %>%
   ggplot(aes(x = Minute, y = Cumul_array_bees, color = Setup, linetype = Day)) +
   scale_linetype_manual(values = c("twodash", "solid", "dotted")) +
-  scale_color_manual(values = c("chartreuse4", "chartreuse3", "chartreuse")) +
+  scale_color_brewer(palette = "Paired") +
   geom_line(linewidth = 1) +
   labs(y = "Cumulative bees that visted flower array") +
   facet_grid(Trial~Treatment, scales = "free_y") +  # trials had very different totals

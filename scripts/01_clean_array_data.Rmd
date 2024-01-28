@@ -334,7 +334,7 @@ combined_array_df <- combined_array_df %>%
   mutate(Treatment = ifelse(Colony == "7B" & Scent == "Peppermint", "Changing", Treatment)) %>%
   # add trial number based on colony
   mutate(Trial = ifelse(Colony == "C", "Trial 1", "Trial 2")) %>%
-  mutate(Setup = paste0("Density: ", Density, ", Number of flowers: ", Flower_number))
+  mutate(Setup = paste0("Density: ", Density, ", Number: ", Flower_number))
 ```
 
 

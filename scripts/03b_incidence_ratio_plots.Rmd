@@ -1,0 +1,92 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Purpose
+
+This script uses the output from generalized linear mixed models (see 03_regression_analyses.Rmd) to illustrate the effects of density and number of flowers on the number/rate of dances that bees performed and the number of waggle runs performed per dance. The data are from experiments using arrays of artificial flowers conducted in the summer of 2022.
+
+
+# Set up working directory
+
+```{r, setup} 
+library(knitr) 
+opts_knit$set(root.dir = normalizePath('../'))
+```
+
+
+# Load libraries
+
+```{r}
+library("tidyverse")  # for wrangling data
+
+```
+
+
+# Read in data files
+
+```{r}
+# This file has incidence rate ratios from a negative binomial model
+# looking at effects of density and flower number on dances performed per bee
+# per observation period
+dances_irr <- read.csv("data/IncidenceRateTable_Dances.csv") %>%
+  mutate(Variable = ifelse(Variable == "Flower number", "Number", Variable))
+
+# This file has incidence rate ratios from a negative binomial model
+# looking at effects of density and flower number on waggle runs performed
+# per dance
+waggle_runs_irr <- read.csv("data/IncidenceRateTable_WaggleRuns.csv") %>%
+  mutate(Variable = ifelse(Variable == "Flower number", "Number", Variable))
+```
+
+# Create "figures" folder if needed
+
+```{r}
+if (!dir.exists("figures")){
+  dir.create("figures")
+}
+```
+
+
+# Make scatterplot with error bars for effects on dancing
+
+```{r}
+dances_irr %>%
+  ggplot(aes(x = Variable, y = Est)) +
+  geom_hline(yintercept = 1, color = "red") +
+  geom_point() +
+  geom_errorbar(aes(ymin = Low, ymax = High), width=.1,
+                 position=position_dodge(.9)) +
+  ylim(0,3) +
+  labs(x = "", y = "Incidence rate ratio") +
+  theme_classic(base_size = 16)
+  
+ggsave(filename = "figures/03b_irr_dances.jpg",
+       device="jpeg",
+       width = 5,
+       height = 5,
+       units = "in",
+       dpi = 300)
+```
+
+# Make scatterplot with error bars for effects on waggle runs per dance
+
+```{r}
+waggle_runs_irr %>%
+  ggplot(aes(x = Variable, y = Est)) +
+  geom_hline(yintercept = 1, color = "red") +
+  geom_point() +
+  geom_errorbar(aes(ymin = Low, ymax = High), width=.1,
+                 position=position_dodge(.9)) +
+  ylim(0,3) +
+  labs(x = "", y = "Incidence rate ratio") +
+  theme_classic(base_size = 16)
+  
+ggsave(filename = "figures/03b_irr_waggle_runs.jpg",
+       device="jpeg",
+       width = 5,
+       height = 5,
+       units = "in",
+       dpi = 300)
+```
